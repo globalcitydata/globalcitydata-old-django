@@ -1,3 +1,4 @@
 gcdvenv
 *.pyc
 .env
+.idea
