@@ -2,3 +2,5 @@ gcdvenv
 *.pyc
 .env
 .idea
+globalcitydata/settings.py
+db.sqlite3
