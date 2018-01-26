@@ -3,3 +3,4 @@ gcdvenv
 .env
 .idea
 db.sqlite3
+*/migrations/*
