@@ -1,6 +1,7 @@
 from django.forms import ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField
 from .models import DataSet, Scale, Parameter, Outcome
 
+
 # class SearchForm(ModelForm):
 #     def __init__(self, *args, **kwargs):
 #         super(SearchForm, self).__init__(*args, **kwargs)

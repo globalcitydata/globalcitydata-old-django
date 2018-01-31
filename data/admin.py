@@ -14,18 +14,17 @@ class DataSetAdmin(admin.ModelAdmin):
     }
 admin.site.register(DataSet, DataSetAdmin)
 
-
-class ScaleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_datasets')
-admin.site.register(Scale, ScaleAdmin)
-
-
-class ParameterAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_datasets')
-admin.site.register(Parameter, ParameterAdmin)
-
-
-class OutcomeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_datasets')
-admin.site.register(Outcome, OutcomeAdmin)
-
+# Only Need Following To Change DataSet Tags
+# class ScaleAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_datasets')
+# admin.site.register(Scale, ScaleAdmin)
+#
+#
+# class ParameterAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_datasets')
+# admin.site.register(Parameter, ParameterAdmin)
+#
+#
+# class OutcomeAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_datasets')
+# admin.site.register(Outcome, OutcomeAdmin)

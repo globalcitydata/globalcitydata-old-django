@@ -1,5 +1,6 @@
 from .models import DataSet, Scale, Parameter, Outcome
 
+
 class DataSetFilter():
     def __init__(self, cd):
         self.cd = cd
@@ -19,7 +20,6 @@ class DataSetFilter():
         datasets = set.union(scales, params, outcomes)
         if not datasets:
             datasets = DataSet.objects.all()
-        print(datasets)
         return datasets
 
     def filterScales(self, scales_q):
