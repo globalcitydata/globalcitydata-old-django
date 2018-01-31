@@ -24,4 +24,5 @@ urlpatterns = [
     # Must be last
     # Home/List view, with filter
     path('', views.dataset_list, name='dataset_list'),
+    # path('', views.MainListView.as_view(), name='dataset_list')
 ]

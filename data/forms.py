@@ -1,27 +1,23 @@
-from django.forms import ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField
+from django import forms
 from .models import DataSet, Scale, Parameter, Outcome
 
+class SearchForm(forms.Form):
+    query = forms.CharField(label='search', max_length=50, required=False)
 
-# class SearchForm(ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(SearchForm, self).__init__(*args, **kwargs)
-#         for key, field in self.fields.iteritems():
-#             self.fields[key].required = False
-
-class DataSetForm(ModelForm):
-    scales = ModelMultipleChoiceField(
+class DataSetForm(forms.ModelForm):
+    scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
-        widget=CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    parameters = ModelMultipleChoiceField(
+    parameters = forms.ModelMultipleChoiceField(
         queryset=Parameter.objects.all(),
-        widget=CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    outcomes = ModelMultipleChoiceField(
+    outcomes = forms.ModelMultipleChoiceField(
         queryset=Outcome.objects.all(),
-        widget=CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple,
         required=False,
     )
 

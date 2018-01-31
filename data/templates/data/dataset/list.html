@@ -4,6 +4,13 @@
 
 {% block content %}
   <h1 class="my-4">Global City Data</h1>
+  {# Search Form #}
+  <form method="post">
+    {% csrf_token %}
+    {{ search }}
+    <input class="btn btn-outline-primary my-4" type="submit" value="Search">
+  </form>
+  {# Dataset Tag Form #}
   <form method="post">
     {% csrf_token %}
     <div class="form-group">

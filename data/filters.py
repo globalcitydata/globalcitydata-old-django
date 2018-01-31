@@ -1,9 +1,18 @@
 from .models import DataSet, Scale, Parameter, Outcome
+from django.contrib.postgres.search import SearchVector
 
 
 class DataSetFilter():
     def __init__(self, cd):
         self.cd = cd
+
+    def search(self):
+        datasets = set()
+        query = self.cd['query']
+        print(query)
+
+        datasets = DataSet.objects.all()
+        return datasets
 
     def getDatasets(self):
         # Get scales
