@@ -14,6 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from . import views
 
 urlpatterns = [
+    # Home/List view, with filter
+    path('$', views.dataset_list, name='dataset_list'),
+    # Dataset Detail view
+    path('^(?P<slug>[-\w]+)/$', views.dataset_detail, name='dataset_detail'),
 ]

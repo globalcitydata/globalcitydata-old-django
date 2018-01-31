@@ -1,0 +1,30 @@
+{% extends "data/base.html" %}
+
+{% block title %}Global City Data{% endblock %}
+
+{% block content %}
+	<h1 class="my-4">Global City Data</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      {% for field in form %}
+        {# Show all fields #}
+        <div class="form-control">
+          <label class="form-control-label" for="topic">{{ field.label }}</label>
+          {{ field }}
+        </div>
+        {# Show errors #}
+        <div class="text-danger small">
+          {{ field.errors }}
+        </div>
+      {% endfor %}
+      <input class="btn btn-outline-primary my-4" type="submit" value="Search">
+    </div>
+  </form>
+  <ul>
+    {% for dataset in datasets %}
+      <li><a href="{{ dataset.get_absolute_url }}">{{ dataset.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

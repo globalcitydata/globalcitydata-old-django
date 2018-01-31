@@ -15,10 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from data.sitemaps import DatasetSitemap
 from django.views.generic import TemplateView
+
+sitemaps = {
+    'datasets': DatasetSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('^$', TemplateView.as_view(template_name='data/dataset/home.html')),
+    # path('^$', TemplateView.as_view(template_name='data/dataset/list.html')),
     # path('^data/', include('data.urls')),
+
+    # Sitemap
+    path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    # Must be last
+    path('', include('data.urls')),
+
 ]
