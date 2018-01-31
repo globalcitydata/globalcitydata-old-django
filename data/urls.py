@@ -16,6 +16,8 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = 'data'
+
 urlpatterns = [
     # Dataset Detail view
     path('<str:slug>/', views.dataset_detail, name='dataset_detail'),
