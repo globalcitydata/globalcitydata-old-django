@@ -29,7 +29,7 @@ urlpatterns = [
     # path('^data/', include('data.urls')),
 
     # Sitemap
-    path(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap\.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # Must be last
     path('', include('data.urls')),
 
