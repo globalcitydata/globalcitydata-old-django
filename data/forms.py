@@ -4,7 +4,7 @@ from .models import DataSet, Scale, Parameter, Outcome
 class SearchForm(forms.Form):
     query = forms.CharField(label='search', max_length=50, required=False)
 
-class DataSetForm(forms.ModelForm):
+class QueryForm(forms.ModelForm):
     scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
         widget=forms.CheckboxSelectMultiple,

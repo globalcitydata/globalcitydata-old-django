@@ -1,5 +1,5 @@
 from .models import DataSet, Scale, Parameter, Outcome
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
 class DataSetFilter():
@@ -7,12 +7,32 @@ class DataSetFilter():
         self.cd = cd
 
     def search(self):
-        datasets = set()
         query = self.cd['query']
-        print(query)
+        # Perform dataset field search
+        dataset_search = set(DataSet.objects.annotate(
+            search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+                                'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
+                                'owner'
+                                )).filter(search=query))
+        # Search dataset tags
+        scales_q = Scale.objects.all().filter(title__icontains=query)
+        scales = self.filterScales(scales_q)
+        params_q = Parameter.objects.all().filter(title__icontains=query)
+        params = self.filterParams(params_q)
+        outcomes_q = Outcome.objects.all().filter(title__icontains=query)
+        outcomes = self.filterOutcomes(outcomes_q)
+        # Set union of all datasets
+        datasets = set.union(dataset_search, scales, params, outcomes)
 
-        datasets = DataSet.objects.all()
         return datasets
+
+        # If I wanted to use Postgres SearchRank...but it didn't work
+        # svector = SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+        #                           'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
+        #                           'owner'
+        #                        )
+        # squery = SearchQuery(query)
+        # datasets = DataSet.objects.annotate(rank=SearchRank(svector, squery)).order_by('-rank')
 
     def getDatasets(self):
         # Get scales

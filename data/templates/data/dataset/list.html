@@ -5,27 +5,28 @@
 {% block content %}
   <h1 class="my-4">Global City Data</h1>
   {# Search Form #}
-  <form method="post">
+  <form method="post" id="searchForm">
     {% csrf_token %}
-    {{ search }}
-    <input class="btn btn-outline-primary my-4" type="submit" value="Search">
+    {{ searchForm }}
+    <input class="btn btn-outline-primary my-4" type="submit" value="Search" name="search">
   </form>
-  {# Dataset Tag Form #}
-  <form method="post">
+  {# Query Form #}
+  <form method="post" id="queryForm">
     {% csrf_token %}
     <div class="form-group">
-      {% for field in form %}
-        {# Show all fields #}
-        <div class="form-control">
-          <label class="form-control-label" for="topic">{{ field.label }}</label>
-          {{ field }}
-        </div>
-        {# Show errors #}
-        <div class="text-danger small">
-          {{ field.errors }}
-        </div>
-      {% endfor %}
-      <input class="btn btn-outline-primary my-4" type="submit" value="Search">
+      {#      {% for field in form %}#}
+      {# Show all fields #}
+      {#        <div class="form-control">#}
+      {#          <label class="form-control-label" for="topic">{{ field.label }}</label>#}
+      {#          {{ field }}#}
+      {#        </div>#}
+      {# Show errors #}
+      {#        <div class="text-danger small">#}
+      {#          {{ field.errors }}#}
+      {#        </div>#}
+      {#      {% endfor %}#}
+      {{ queryForm }}
+      <input class="btn btn-outline-primary my-4" type="submit" value="Search" name="query">
     </div>
   </form>
   <ul>
@@ -33,5 +34,39 @@
       <li><a href="{{ dataset.get_absolute_url }}">{{ dataset.title }}</a></li>
     {% endfor %}
   </ul>
+
+{#  <script>#}
+{#    $(document).on('submit', '#searchForm', function (e) {#}
+{#      e.preventDefault();#}
+{##}
+{#      $.ajax({#}
+{#        type: 'POST',#}
+{#        url: '/',#}
+{#        data: {#}
+{#          query: $('#query').val()#}
+{#        },#}
+{#        success: function () {#}
+{##}
+{#        }#}
+{#      })#}
+{#    });#}
+{##}
+{#    $(document).on('submit', '#queryForm', function (e) {#}
+{#      e.preventDefault();#}
+{##}
+{#      $.ajax({#}
+{#        type: 'POST',#}
+{#        url: '/',#}
+{#        data: {#}
+{#          scales: $('#scales').val(),#}
+{#          parameters: $('#parameters').val(),#}
+{#          outcomes: $('#outcomes').val(),#}
+{#        },#}
+{#        success: function () {#}
+{##}
+{#        }#}
+{#      })#}
+{#    });#}
+{#  </script>#}
 
 {% endblock %}
