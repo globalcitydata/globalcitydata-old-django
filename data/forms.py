@@ -1,8 +1,10 @@
 from django import forms
 from .models import DataSet, Scale, Parameter, Outcome
 
+
 class SearchForm(forms.Form):
     query = forms.CharField(label='search', max_length=50, required=False)
+
 
 class QueryForm(forms.ModelForm):
     scales = forms.ModelMultipleChoiceField(

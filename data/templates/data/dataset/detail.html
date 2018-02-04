@@ -3,17 +3,17 @@
 {% block title %}{{ dataset.title }}{% endblock %}
 
 {% block content %}
-	<h1 class="my-4">{{ dataset.title }}</h1>
-	<p>Description: {{ dataset.description|linebreaks }}</p>
-    <p>Scale: {{ dataset.scale }}</p>
-    <p>Parameters: {{ dataset.parameters }}</p>
-    <p>Outcomes: {{ dataset.outcomes }}</p>
-    <p>Context: {{ dataset.context }}</p>
-    <p>Key Takeaways: {{ dataset.key_takeaways }}</p>
-    <p>Sample Uses And Visualizations: {{ dataset.sample_uses_and_visualization }}</p>
-    <p>Technical Details: {{ dataset.technical_details }}</p>
-    <p>Applicable Models: {{ dataset.applicable_models }}</p>
-    <p>Relevant Publications: {{ dataset.relevant_publications }}</p>
-    <p>Contact Details For Accessing Data Set: {{ dataset.contact_details }}</p>
+  <h1 class="my-4">{{ dataset.title }}</h1>
+  <p>Description: {{ dataset.description }}</p>
+  <p>Scale: {{ dataset.scale }}</p>
+  <p>Parameters: {{ dataset.parameters }}</p>
+  <p>Outcomes: {{ dataset.outcomes }}</p>
+  <p>Context: {{ dataset.context }}</p>
+  <p>Key Takeaways: {{ dataset.key_takeaways }}</p>
+  <p>Sample Uses And Visualizations: {{ dataset.sample_uses_and_visualization }}</p>
+  <p>Technical Details: {{ dataset.technical_details }}</p>
+  <p>Applicable Models: {{ dataset.applicable_models }}</p>
+  <p>Relevant Publications: {{ dataset.relevant_publications }}</p>
+  <p>Contact Details For Accessing Data Set: {{ dataset.contact_details }}</p>
 {% endblock %}
 

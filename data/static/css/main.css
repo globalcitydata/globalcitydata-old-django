@@ -1,0 +1,10 @@
+/* Main Content */
+#content {
+  min-height: 75vh;
+}
+
+/* Footer Styles */
+#footer {
+  font-size: 1.5rem;
+  padding: 1rem;
+}

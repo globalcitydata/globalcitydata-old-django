@@ -8,65 +8,46 @@
   <form method="post" id="searchForm">
     {% csrf_token %}
     {{ searchForm }}
-    <input class="btn btn-outline-primary my-4" type="submit" value="Search" name="search">
+    <input class="btn btn-outline-primary my-4" type="submit" name="search" value="Search">
   </form>
   {# Query Form #}
   <form method="post" id="queryForm">
     {% csrf_token %}
     <div class="form-group">
-      {#      {% for field in form %}#}
-      {# Show all fields #}
-      {#        <div class="form-control">#}
-      {#          <label class="form-control-label" for="topic">{{ field.label }}</label>#}
-      {#          {{ field }}#}
-      {#        </div>#}
-      {# Show errors #}
-      {#        <div class="text-danger small">#}
-      {#          {{ field.errors }}#}
-      {#        </div>#}
-      {#      {% endfor %}#}
-      {{ queryForm }}
+      {% for field in queryForm %}
+        {# Show all fields #}
+        <div class="form-control">
+          <label class="form-control-label" for="topic">{{ field.label }}</label>
+          {{ field }}
+        </div>
+        {# Show errors #}
+        <div class="text-danger small">
+          {{ field.errors }}
+        </div>
+      {% endfor %}
       <input class="btn btn-outline-primary my-4" type="submit" value="Search" name="query">
     </div>
   </form>
-  <ul>
-    {% for dataset in datasets %}
-      <li><a href="{{ dataset.get_absolute_url }}">{{ dataset.title }}</a></li>
-    {% endfor %}
-  </ul>
-
-{#  <script>#}
-{#    $(document).on('submit', '#searchForm', function (e) {#}
-{#      e.preventDefault();#}
-{##}
-{#      $.ajax({#}
-{#        type: 'POST',#}
-{#        url: '/',#}
-{#        data: {#}
-{#          query: $('#query').val()#}
-{#        },#}
-{#        success: function () {#}
-{##}
-{#        }#}
-{#      })#}
-{#    });#}
-{##}
-{#    $(document).on('submit', '#queryForm', function (e) {#}
-{#      e.preventDefault();#}
-{##}
-{#      $.ajax({#}
-{#        type: 'POST',#}
-{#        url: '/',#}
-{#        data: {#}
-{#          scales: $('#scales').val(),#}
-{#          parameters: $('#parameters').val(),#}
-{#          outcomes: $('#outcomes').val(),#}
-{#        },#}
-{#        success: function () {#}
-{##}
-{#        }#}
-{#      })#}
-{#    });#}
-{#  </script>#}
+  <hr>
+  {# Datasets #}
+  <section id="datasets">
+    <h1 class="my-4">Datasets</h1>
+    <div class="row">
+      {% for dataset in datasets %}
+        <section class="col-md-4 my-3">
+          <div class="card h-100">
+            <h3 class="card-header">{{ dataset.title }}</h3>
+            <div class="card-body d-flex flex-column">
+              {#<h4 class="card-title">Description</h4>#}
+              <p class="card-text">{{ dataset.description|truncatewords:30 }}</p>
+              <a href="{{ dataset.get_absolute_url }}" class="btn btn-primary mt-auto">Dataset Detail</a>
+            </div>
+          </div>
+        </section>
+      {% empty %}
+        <p class="m-4">There are no datasets that match your query.</p>
+      {% endfor %}
+    </div>
+  </section>
 
 {% endblock %}

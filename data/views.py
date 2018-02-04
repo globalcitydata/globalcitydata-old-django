@@ -5,9 +5,11 @@ from .models import DataSet
 from .forms import QueryForm, SearchForm
 from .filters import DataSetFilter
 
+
 def dataset_detail(request, slug):
     dataset = get_object_or_404(DataSet, slug=slug)
     return render(request=request, template_name='data/dataset/detail.html', context={'dataset': dataset})
+
 
 def dataset_list(request):
     datasets = DataSet.objects.all()
