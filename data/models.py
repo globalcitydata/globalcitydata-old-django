@@ -60,17 +60,17 @@ class DataSetManager(models.Manager):
 
 class DataSet(models.Model):
     # Info for Page Fields
-    title = models.CharField(max_length=20, default='place title here', unique=True)
+    title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
-    description = models.CharField(max_length=250, default='None')
-    context = models.CharField(max_length=100, default='None')
-    key_takeaways = models.CharField(max_length=50, default='None')
-    sample_uses_and_visualization = models.CharField(max_length=100, default='None')
-    technical_details = models.CharField(max_length=100, default='None')
-    applicable_models = models.CharField(max_length=100, default='None')
-    relevant_publications = models.CharField(max_length=50, default='None')
-    contact_details = models.CharField(max_length=50, default='None')
-    owner = models.CharField(max_length=50, default='None')
+    description = models.CharField(max_length=250, default='')
+    context = models.CharField(max_length=100, default='')
+    key_takeaways = models.CharField(max_length=50, default='')
+    sample_uses_and_visualization = models.CharField(max_length=100, default='')
+    technical_details = models.CharField(max_length=100, default='')
+    applicable_models = models.CharField(max_length=100, default='')
+    relevant_publications = models.CharField(max_length=50, default='')
+    contact_details = models.CharField(max_length=50, default='')
+    owner = models.CharField(max_length=50, default='')
     publish = models.DateTimeField(default=timezone.now)  # used when you want to specify specific date time in model
 
     # Filters

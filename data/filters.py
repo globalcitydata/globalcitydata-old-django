@@ -26,14 +26,6 @@ class DataSetFilter():
 
         return datasets
 
-        # If I wanted to use Postgres SearchRank...but it didn't work
-        # svector = SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
-        #                           'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
-        #                           'owner'
-        #                        )
-        # squery = SearchQuery(query)
-        # datasets = DataSet.objects.annotate(rank=SearchRank(svector, squery)).order_by('-rank')
-
     def getDatasets(self):
         # Get scales
         scales_q = self.cd['scales']
