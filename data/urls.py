@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
 
 app_name = 'data'
 
 urlpatterns = [
+    # Static Pages
+    path('collaborators/', TemplateView.as_view(template_name='data/staticpage/collaborators.html'), name='collaborators'),
+    path('publications/', TemplateView.as_view(template_name='data/staticpage/publications.html'), name='publications'),
     # Dataset Detail view
     path('<str:slug>/', views.dataset_detail, name='dataset_detail'),
-    # Must be last
-    # Home/List view, with filter
+    # Must be last, Home/List view, with filter
     path('', views.dataset_list, name='dataset_list'),
     # path('', views.MainListView.as_view(), name='dataset_list')
 ]
