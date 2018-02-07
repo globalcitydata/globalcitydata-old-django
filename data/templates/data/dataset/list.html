@@ -13,14 +13,17 @@
   {# Query Form #}
   <form method="post" id="queryForm">
     {% csrf_token %}
-    <div class="form-group">
+    <div class="">
       {% for field in queryForm %}
-        {# Show all fields #}
-        <div class="form-control">
-          <label class="form-control-label" for="topic">{{ field.label }}</label>
+{#         Show all fields #}
+        <div class="dropdown my-4">
+          <a href="#" class="btn btn-primary dropdown-toggle" role="button" id="dropdown{{ forloop.counter }}" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
+          <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
           {{ field }}
+          </div>
         </div>
-        {# Show errors #}
+{#         Show errors #}
         <div class="text-danger small">
           {{ field.errors }}
         </div>
@@ -49,5 +52,18 @@
       {% endfor %}
     </div>
   </section>
+
+  <script>
+{#    scales = document.getElementById('div_id_scales');#}
+{#      labels = document.getElementsByTagName('label');#}
+{#      labels.classList.add('dropdown');#}
+{#      for (var i=0; i < labels.length; i++) {#}
+{#        #}
+{#      }#}
+{#    scales.classList.add('dropdown');#}
+{#    scales.classList.remove('form-group');#}
+{#    scales[0];#}
+{#  document.getElementsByClassName('form-control-label').classList.add('scales_test');#}
+  </script>
 
 {% endblock %}
