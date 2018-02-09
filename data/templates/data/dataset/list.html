@@ -3,34 +3,37 @@
 {% block title %}Global City Data{% endblock %}
 
 {% block content %}
-  <h1 class="my-4">Global City Data</h1>
-  {# Search Form #}
-  <form method="post" id="searchForm">
-    {% csrf_token %}
-    {{ searchForm }}
-    <input class="btn btn-outline-primary my-4" type="submit" name="search" value="Search">
-  </form>
-  {# Query Form #}
-  <form method="post" id="queryForm">
-    {% csrf_token %}
-    <div class="">
-      {% for field in queryForm %}
-{#         Show all fields #}
-        <div class="dropdown my-4">
-          <a href="#" class="btn btn-primary dropdown-toggle" role="button" id="dropdown{{ forloop.counter }}" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
-          <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
-          {{ field }}
+  <h1 class="mt-4">Global City Data</h1>
+  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center" id="filter">
+    {# Search Form #}
+    <form method="post" id="searchForm">
+      {% csrf_token %}
+      <div class="input-group">
+        {{ searchForm.query }}
+        <div class="input-group-append">
+          <button type="submit" name="search" class="btn btn-outline-primary p-3"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+    {# Query Form #}
+    <form method="post" id="queryForm">
+      {% csrf_token %}
+      <div class="d-flex flex-column flex-md-row bg-primary">
+        {% for field in queryForm %}
+          <div class="dropdown align-self-start align-self-md-center" id="queryDropdowns">
+            <a href="#" class="btn btn-primary px-3 dropdown-toggle" role="button" id="dropdown{{ forloop.counter }}"
+               data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
+              {{ field }}
+            </div>
           </div>
-        </div>
-{#         Show errors #}
-        <div class="text-danger small">
-          {{ field.errors }}
-        </div>
-      {% endfor %}
-      <input class="btn btn-outline-primary my-4" type="submit" value="Search" name="query">
-    </div>
-  </form>
+        {% endfor %}
+        <input class="btn btn-outline-light m-2" type="submit" value="Search" name="query">
+      </div>
+    </form>
+  </div>
+
   <hr>
   {# Datasets #}
   <section id="datasets">
@@ -52,18 +55,5 @@
       {% endfor %}
     </div>
   </section>
-
-  <script>
-{#    scales = document.getElementById('div_id_scales');#}
-{#      labels = document.getElementsByTagName('label');#}
-{#      labels.classList.add('dropdown');#}
-{#      for (var i=0; i < labels.length; i++) {#}
-{#        #}
-{#      }#}
-{#    scales.classList.add('dropdown');#}
-{#    scales.classList.remove('form-group');#}
-{#    scales[0];#}
-{#  document.getElementsByClassName('form-control-label').classList.add('scales_test');#}
-  </script>
 
 {% endblock %}

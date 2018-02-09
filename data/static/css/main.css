@@ -3,9 +3,20 @@
   min-height: 75vh;
 }
 
-/* QueryForm Styles */
-.scales_test label {
-  color: red !important;;
+/* Home Styles */
+#filter {
+  min-height: 40vh;
+}
+
+/* QueryForm */
+#queryDropdowns .dropdown-menu ul {
+  list-style: none;
+  padding-left: 5% !important;
+}
+
+/* SearchForm */
+#searchForm input {
+  width: 15rem; !important;
 }
 
 /* Footer Styles */
