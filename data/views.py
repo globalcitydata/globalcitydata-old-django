@@ -6,12 +6,12 @@ from .forms import QueryForm, SearchForm
 from .filters import DataSetFilter
 
 
-def dataset_detail(request, slug):
+def detailView(request, slug):
     dataset = get_object_or_404(DataSet, slug=slug)
     return render(request=request, template_name='data/dataset/detail.html', context={'dataset': dataset})
 
 
-def dataset_list(request):
+def homeView(request):
     datasets = DataSet.objects.all()
     if request.method == 'POST':
         # Form was submitted
@@ -30,6 +30,6 @@ def dataset_list(request):
     else:
         queryForm = QueryForm()
         searchForm = SearchForm()
-    return render(request=request, template_name='data/dataset/list.html', context={'datasets': datasets,
+    return render(request=request, template_name='data/dataset/home.html', context={'datasets': datasets,
                                                                                     'queryForm': queryForm,
                                                                                     'searchForm': searchForm})

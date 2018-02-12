@@ -82,7 +82,7 @@ class DataSet(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse(viewname='data:dataset_detail', kwargs={'slug': self.slug})
+        return reverse(viewname='data:detail', kwargs={'slug': self.slug})
 
     def get_scales(self):
         return ", ".join([scale.title for scale in self.scales.all()])

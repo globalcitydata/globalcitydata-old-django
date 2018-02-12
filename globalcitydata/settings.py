@@ -134,3 +134,6 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

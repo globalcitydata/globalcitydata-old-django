@@ -13,17 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.urls import path
 from . import views
-from django.views.generic import TemplateView
 
-app_name = 'data'
+app_name = 'sendemail'
 
 urlpatterns = [
-    path('collaborators/', TemplateView.as_view(template_name='data/staticpage/collaborators.html'), name='collaborators'),
-    path('publications/', TemplateView.as_view(template_name='data/staticpage/publications.html'), name='publications'),
-    # Dataset Detail view
-    path('<str:slug>/', views.detailView, name='detail'),
-    # Must be last, Home/List view, with filter
-    path('', views.homeView, name='home'),
+    path('success/', views.successView, name='success'),
+    path('', views.emailView, name='email'),
 ]

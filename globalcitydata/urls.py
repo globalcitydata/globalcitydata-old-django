@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from data.sitemaps import DatasetSitemap
-from django.views.generic import TemplateView
 
 sitemaps = {
     'datasets': DatasetSitemap,
@@ -25,9 +24,8 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('^$', TemplateView.as_view(template_name='data/dataset/list.html')),
-    # path('^data/', include('data.urls')),
-
+    # Email
+    path('email/', include('sendemail.urls')),
     # Sitemap
     path('sitemap\.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # Must be last
