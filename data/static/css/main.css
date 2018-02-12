@@ -5,7 +5,18 @@
 
 /* Home Styles */
 #filter {
-  min-height: 40vh;
+  height: 40vh;
+  max-width: 1000px !important;
+  position: relative;
+}
+
+/* SearchForm */
+#searchForm .input-group {
+  height: 3.5rem !important;
+}
+#searchForm button {
+  height: 3.5rem !important;
+  width: 3rem !important;
 }
 
 /* QueryForm */
@@ -13,11 +24,26 @@
   list-style: none;
   padding-left: 5% !important;
 }
-
-/* SearchForm */
-#searchForm input {
-  width: 20rem; !important;
+#queryDropdowns a {
+  height: 3.5rem !important;
+  line-height: 2.25rem !important;
+  white-space: nowrap !important;
+  text-align: left !important;
 }
+#queryForm .col-md, .col-md-5 {
+  padding: 0; !important;
+  margin: 0; !important;
+}
+#queryForm .row {
+  border-radius: 3rem;
+}
+
+#forms {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+}
+
 
 /* Footer Styles */
 #footer {

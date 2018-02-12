@@ -1,35 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-        integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <!-- Bootstrap core JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-          integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-          crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-          integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-          crossorigin="anonymous"></script>
-</head>
-<body>
+{% extends "data/base.html" %}
 
-<div class="dropdown">
-  <a href="#" class="btn btn-primary dropdown-toggle" role="button" id="dropdown1" data-toggle="dropdown"
-     aria-haspopup="true" aria-expanded="false">Test</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown1">
-    <form>
-      <ul>
-        <li><input type="checkbox" value="test 1"> Test 1</li>
-        <li><input type="checkbox" value="test 2"> Test 2</li>
-        <li><input type="checkbox" value="test 3"> Test 3</li>
-      </ul>
-      <input type="submit" value="Submit">
+{% block title %}Global City Data{% endblock %}
+
+{% block content %}
+  <h1 class="mt-4">Global City Data</h1>
+  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center" id="filter">
+    {# Search Form #}
+    <form method="post" id="searchForm">
+      {% csrf_token %}
+      <div class="input-group">
+        {{ searchForm.query }}
+        <div class="input-group-append">
+          <button type="submit" name="search" class="btn btn-outline-primary p-3"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+    {# Query Form #}
+    <form method="post" id="queryForm">
+      {% csrf_token %}
+      <div class="d-flex flex-column flex-md-row bg-primary">
+        {% for field in queryForm %}
+          <div class="dropdown align-self-start align-self-md-center" id="queryDropdowns">
+            <a href="#" class="btn btn-primary text-left dropdown-toggle" role="button" id="dropdown{{ forloop.counter }}"
+               data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
+              {{ field }}
+            </div>
+          </div>
+        {% endfor %}
+        <input class="btn btn-outline-light m-2" type="submit" value="Search" name="query">
+      </div>
     </form>
   </div>
-</div>
 
-</body>
-</html>
+  <hr>
+  {# Datasets #}
+  <section id="datasets">
+    <h1 class="my-4">Datasets</h1>
+    <div class="row">
+      {% for dataset in datasets %}
+        <section class="col-md-4 my-3">
+          <div class="card h-100">
+            <h3 class="card-header">{{ dataset.title }}</h3>
+            <div class="card-body d-flex flex-column">
+              {#<h4 class="card-title">Description</h4>#}
+              <p class="card-text">{{ dataset.description|truncatewords:30 }}</p>
+              <a href="{{ dataset.get_absolute_url }}" class="btn btn-primary mt-auto">Dataset Detail</a>
+            </div>
+          </div>
+        </section>
+      {% empty %}
+        <p class="m-4">There are no datasets that match your query.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+{% endblock %}
