@@ -58,7 +58,7 @@
 }
 
 /* About */
-#about .container {
+#about .container, #datasets .container {
   padding: 75px 0;
 }
 
@@ -66,11 +66,6 @@
 #datasets {
   background: lightgray;
 }
-
-#datasets .container {
-  padding: 75px 0;
-}
-
 
 /* Footer Styles */
 #footer {
