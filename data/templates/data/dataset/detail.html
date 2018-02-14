@@ -3,19 +3,32 @@
 {% block title %}{{ dataset.title }}{% endblock %}
 
 {% block content %}
-  <div id="content" class="container my-4">
-    <h1 class="my-4">{{ dataset.title }}</h1>
-    <p>Description: {{ dataset.description }}</p>
-    <p>Scale: {{ dataset.scale }}</p>
-    <p>Parameters: {{ dataset.parameters }}</p>
-    <p>Outcomes: {{ dataset.outcomes }}</p>
-    <p>Context: {{ dataset.context }}</p>
-    <p>Key Takeaways: {{ dataset.key_takeaways }}</p>
-    <p>Sample Uses And Visualizations: {{ dataset.sample_uses_and_visualization }}</p>
-    <p>Technical Details: {{ dataset.technical_details }}</p>
-    <p>Applicable Models: {{ dataset.applicable_models }}</p>
-    <p>Relevant Publications: {{ dataset.relevant_publications }}</p>
-    <p>Contact Details For Accessing Data Set: {{ dataset.contact_details }}</p>
+  <div id="detail" class="container">
+    <div class="jumbotron">
+      <h1 class="mb-4">{{ dataset.title }}</h1>
+      <p class="lead">{{ dataset.description }}</p>
+      <hr>
+      <h4 class="mb-3">Dataset Tags</h4>
+      <div class="container">
+        <p><span class="font-weight-bold">Scales: </span>{{ dataset.get_scales }}</p>
+        <p><span class="font-weight-bold">Parameters: </span>{{ dataset.get_parameters }}</p>
+        <p><span class="font-weight-bold">Outcomes: </span>{{ dataset.get_outcomes }}</p>
+      </div>
+      <h4>Context</h4>
+      <p>{{ dataset.context }}</p>
+      <h4>Key Takeaways</h4>
+      <p>{{ dataset.key_takeaways }}</p>
+      <h4>Sample Uses and Visualizations</h4>
+      <p>{{ dataset.sample_uses_and_visualization }}</p>
+      <h4>Technical Details</h4>
+      <p>{{ dataset.technical_details }}</p>
+      <h4>Applicaable Models</h4>
+      <p>{{ dataset.applicable_models }}</p>
+      <h4>Relevant Publications</h4>
+      <p>{{ dataset.relevant_publications }}</p>
+      <button class="btn btn-primary mt-3">Request dataset access</button>
+      <p class="hiddenText text-hide">{{ dataset.contact_details }}</p>
+    </div>
   </div>
 {% endblock %}
 

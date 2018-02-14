@@ -8,7 +8,7 @@
   <div id="showcase" class="d-block mx-auto text-center">
     <div id="bg-image"></div>
     <div class="container">
-      <h1>Global City Data</h1>
+      <h1 class="text-white">Global City Data</h1>
       <div class="row" id="forms">
         <div class="col-md-5">
           {# Search Form #}
@@ -58,14 +58,13 @@
 
   <section id="datasets">
     <div class="container">
-      <h1 class="my-4 text-center">Datasets</h1>
+      <h1 class="my-4 text-center text-white">Datasets</h1>
       <div class="row">
         {% for dataset in datasets %}
           <section class="col-md-4 my-3">
             <div class="card h-100">
               <h3 class="card-header">{{ dataset.title }}</h3>
               <div class="card-body d-flex flex-column">
-                {#<h4 class="card-title">Description</h4>#}
                 <p class="card-text">{{ dataset.description|truncatewords:30 }}</p>
                 <a href="{{ dataset.get_absolute_url }}" class="btn btn-primary mt-auto">Dataset Detail</a>
               </div>

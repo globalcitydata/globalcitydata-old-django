@@ -1,11 +1,11 @@
 /* Main Content */
 #content {
-  min-height: 75vh;
+  min-height: 65vh;
 }
 
 /* Showcase Styles */
 #showcase {
-  min-height: 450px;
+  min-height: 500px;
 }
 
 #showcase #bg-image {
@@ -13,13 +13,13 @@
   background: #333 url('../img/city.jpeg');
   background-size: cover;
   width: 100%;
-  height: 450px;
+  height: 500px;
   z-index: -1;
-  opacity: 0.5;
+  filter: brightness(50%);
 }
 
 #showcase h1 {
-  padding-top: 90px;
+  padding-top: 140px;
   padding-bottom: 50px;
 }
 
@@ -58,17 +58,21 @@
 }
 
 /* About */
-#about .container, #datasets .container {
-  padding: 75px 0;
+#about .container, #datasets .container, #footer, #detail {
+  padding-top: 75px;
+  padding-bottom: 75px;
 }
 
 /* Datasets */
 #datasets {
-  background: lightgray;
+  background: linear-gradient(to bottom right, white, black);
 }
 
+/* Dataset Detail */
+
+
 /* Footer Styles */
-#footer {
-  font-size: 1.5rem;
-  padding: 1rem;
+
+#footer p {
+  font-size: 1.2rem;
 }
