@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
-from .forms import ContactForm
+from django.http import HttpResponse
+from .forms import ContactForm, DatasetSubmitForm
 
-def emailView(request):
+def contactView(request):
     if request.method == 'POST':
         contactForm = ContactForm(request.POST)
         if contactForm.is_valid():
@@ -19,6 +19,24 @@ def emailView(request):
     else:
         contactForm = ContactForm()
     return render(request, 'sendemail/email.html', {'contactForm': contactForm})
+
+
+def submitDatasetView(request):
+    if request.method == 'POST':
+        datasetSubmitForm = DatasetSubmitForm(request.POST)
+        if datasetSubmitForm.is_valid():
+            cd = DatasetSubmitForm.cleaned_data
+            title = cd['title']
+            description = cd['description']
+            contact_details = cd['contact_details']
+            try:
+                send_mail(title, description, contact_details, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid Header Found')
+            return redirect('success')
+    else:
+        datasetSubmitForm = DatasetSubmitForm()
+    return render(request, 'sendemail/datasetSubmit.html', {'datasetSubmitForm': datasetSubmitForm})
 
 
 def successView(request):

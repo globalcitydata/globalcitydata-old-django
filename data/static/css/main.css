@@ -23,6 +23,10 @@
   padding-bottom: 50px;
 }
 
+#showcase .btn {
+  font-size: 1.1rem;
+}
+
 /* SearchForm */
 #searchForm .input-group {
   height: 3.5rem !important;
@@ -69,7 +73,7 @@
 }
 
 /* Dataset Detail */
-.btn {
+#detail .btn {
   font-size: 1.3rem;
 }
 

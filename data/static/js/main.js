@@ -2,12 +2,12 @@ $(function () {
   $('.lazy').lazy();
 });
 
-$(".btn").click(function() {
-  var lable = $(".btn").text().trim();
+$(".hiddenbtn").click(function() {
+  var lable = $(".hiddenbtn").text().trim();
   var hidden = $(".hiddenText").text().trim();
   if (lable == "Request dataset access") {
-    $(".btn").text(hidden)
+    $(".hiddenbtn").text(hidden)
   } else {
-    $(".btn").text("Request dataset access")
+    $(".hiddenbtn").text("Request dataset access")
   }
 });
