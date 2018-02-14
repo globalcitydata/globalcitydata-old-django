@@ -3,97 +3,79 @@
 {% block title %}Global City Data{% endblock %}
 
 {% block content %}
-  <h1 class="mt-4">Global City Data</h1>
-  <div id="filter" class="d-block mx-auto">
-    <div class="row" id="forms">
-      <div class="col-md-5">
-        {# Search Form #}
-        <form method="post" id="searchForm">
-          {% csrf_token %}
-          <div class="input-group">
-            {{ searchForm.query }}
-            <div class="input-group-append">
-              <button type="submit" name="search" class="btn btn-outline-primary"><i class="fa fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-md">
-        <form method="post" id="queryForm">
-          <div class="row bg-primary">
+
+  <div id="showcase" class="d-block mx-auto text-center">
+    <div id="bg-image"></div>
+    <div class="container">
+      <h1>Global City Data</h1>
+      <div class="row" id="forms">
+        <div class="col-md-5">
+          {# Search Form #}
+          <form method="post" id="searchForm">
             {% csrf_token %}
-            {% for field in queryForm %}
-              <div class="col-md">
-                <div class="dropdown" id="queryDropdowns">
-                  <a href="#" class="btn btn-primary btn-block dropdown-toggle" role="button"
-                     id="dropdown{{ forloop.counter }}"
-                     data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
-                    {{ field }}
+            <div class="input-group">
+              {{ searchForm.query }}
+              <div class="input-group-append">
+                <button type="submit" name="search" class="btn btn-light"><i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md">
+          <form method="post" id="queryForm">
+            <div class="row bg-primary">
+              {% csrf_token %}
+              {% for field in queryForm %}
+                <div class="col-md">
+                  <div class="dropdown" id="queryDropdowns">
+                    <a href="#" class="btn btn-primary btn-block dropdown-toggle" role="button"
+                       id="dropdown{{ forloop.counter }}"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">
+                      {{ field }}
+                    </div>
                   </div>
                 </div>
-              </div>
-            {% endfor %}
-            <input class="btn btn-success col-md-2" type="submit" value="Search" name="query">
-          </div>
-
-        </form>
+              {% endfor %}
+              <input class="btn btn-success col-md-2" type="submit" value="Search" name="query">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-  {##}
-  {#  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center" id="filter">#}
-  {# Search Form #}
-  {#    <form method="post" id="searchForm">#}
-  {#      {% csrf_token %}#}
-  {#      <div class="input-group">#}
-  {#        {{ searchForm.query }}#}
-  {#        <div class="input-group-append">#}
-  {#          <button type="submit" name="search" class="btn btn-outline-primary p-3"><i class="fa fa-search"></i></button>#}
-  {#        </div>#}
-  {#      </div>#}
-  {#    </form>#}
-  {# Query Form #}
-  {#    <form method="post" id="queryForm">#}
-  {#      {% csrf_token %}#}
-  {#      <div class="d-flex flex-column flex-md-row bg-primary">#}
-  {#        {% for field in queryForm %}#}
-  {#          <div class="dropdown align-self-start align-self-md-center" id="queryDropdowns">#}
-  {#            <a href="#" class="btn btn-primary px-3 dropdown-toggle" role="button" id="dropdown{{ forloop.counter }}"#}
-  {#               data-toggle="dropdown"#}
-  {#               aria-haspopup="true" aria-expanded="false"><label for="topic">{{ field.label }}</label></a>#}
-  {#            <div class="dropdown-menu" aria-labelledby="dropdown{{ forloop.counter }}">#}
-  {#              {{ field }}#}
-  {#            </div>#}
-  {#          </div>#}
-  {#        {% endfor %}#}
-  {#        <input class="btn btn-outline-light m-2" type="submit" value="Search" name="query">#}
-  {#      </div>#}
-  {#    </form>#}
-  {#  </div>#}
 
-  <hr>
-  {# Datasets #}
-  <section id="datasets">
-    <h1 class="my-4">Datasets</h1>
-    <div class="row">
-      {% for dataset in datasets %}
-        <section class="col-md-4 my-3">
-          <div class="card h-100">
-            <h3 class="card-header">{{ dataset.title }}</h3>
-            <div class="card-body d-flex flex-column">
-              {#<h4 class="card-title">Description</h4>#}
-              <p class="card-text">{{ dataset.description|truncatewords:30 }}</p>
-              <a href="{{ dataset.get_absolute_url }}" class="btn btn-primary mt-auto">Dataset Detail</a>
-            </div>
-          </div>
-        </section>
-      {% empty %}
-        <p class="m-4">There are no datasets that match your query.</p>
-      {% endfor %}
+  <section id="about">
+    <div class="container text-center">
+      <h2 class="mb-4">Our Purpose</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque dolore illum impedit quam recusandae
+        ut. Ea ex impedit minima modi nemo obcaecati veniam, voluptatibus? Dignissimos maxime sit tempora voluptas.</p>
     </div>
+  </section>
+
+  <section id="datasets">
+    <div class="container">
+      <h1 class="my-4 text-center">Datasets</h1>
+      <div class="row">
+        {% for dataset in datasets %}
+          <section class="col-md-4 my-3">
+            <div class="card h-100">
+              <h3 class="card-header">{{ dataset.title }}</h3>
+              <div class="card-body d-flex flex-column">
+                {#<h4 class="card-title">Description</h4>#}
+                <p class="card-text">{{ dataset.description|truncatewords:30 }}</p>
+                <a href="{{ dataset.get_absolute_url }}" class="btn btn-primary mt-auto">Dataset Detail</a>
+              </div>
+            </div>
+          </section>
+        {% empty %}
+          <p class="m-4">There are no datasets that match your query.</p>
+        {% endfor %}
+      </div>
+    </div>
+
   </section>
 
 {% endblock %}
