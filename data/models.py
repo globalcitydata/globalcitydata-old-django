@@ -69,7 +69,7 @@ class DataSet(models.Model):
     technical_details = models.CharField(max_length=100, default='')
     applicable_models = models.CharField(max_length=100, default='')
     relevant_publications = models.CharField(max_length=50, default='')
-    contact_details = models.CharField(max_length=50, default='')
+    contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     publish = models.DateTimeField(default=timezone.now)  # used when you want to specify specific date time in model
 
