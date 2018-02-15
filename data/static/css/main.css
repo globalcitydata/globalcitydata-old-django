@@ -11,6 +11,9 @@
 #showcase #bg-image {
   position: absolute;
   background: #333 url('../img/city.jpeg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   height: 500px;
