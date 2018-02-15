@@ -21,6 +21,6 @@ app_name = 'sendemail'
 
 urlpatterns = [
     path('success/', views.successView, name='success'),
-    path('submit-dataset/', views.DatasetSubmitForm, name='submitDataset'),
+    path('submit-dataset/', views.submitDatasetView, name='submitDataset'),
     path('contact/', views.contactView, name='email'),
 ]
