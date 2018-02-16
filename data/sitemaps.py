@@ -10,7 +10,7 @@ class DatasetSitemap(Sitemap):
         return DataSet.published.all()
 
     def lastmod(self, obj):  # Receives each object returned by items and returns last time object is modified
-        return obj.publish
+        return obj.updated
 
         # If want to specify URL for each object, add location method to class
         # def location(self, obj):

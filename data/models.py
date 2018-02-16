@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 # Filters
 class Scale(models.Model):
@@ -70,6 +71,7 @@ class DataSet(models.Model):
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
+    updated = models.DateTimeField(auto_now=True)
 
     # To retrieve published datasets
     published = PublishedManager()
@@ -109,6 +111,7 @@ class DataSetModel(models.Model):
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
+    updated = models.DateTimeField(auto_now=True)
 
     # To retrieve published dataset models
     published = PublishedManager()
