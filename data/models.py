@@ -2,6 +2,11 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
+STATUS_CHOICES = (
+    ('draft', 'Draft'),
+    ('published', 'Published'),
+)
+
 
 # Filters
 class Scale(models.Model):
@@ -55,12 +60,12 @@ class Outcome(models.Model):
 # DataSets
 class DataSetManager(models.Manager):
     def get_queryset(self):
-        return super(DataSetManager, self).get_queryset().all()
+        return super(DataSetManager, self).get_queryset().filter(status='published')
 
 
 class DataSet(models.Model):
     # Info for Page Fields
-    published = models.BooleanField(default=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -72,6 +77,9 @@ class DataSet(models.Model):
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
+
+    # To retrieve published datasets
+    published = DataSetManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)
@@ -92,19 +100,16 @@ class DataSet(models.Model):
 
     def get_outcomes(self):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
-
-    def get_published(self):
-        return self.objects.all().filter(published=True)
 
 
 class DataSetModelManager(models.Manager):
     def get_queryset(self):
-        return super(DataSetModelManager, self).get_queryset().all()
+        return super(DataSetModelManager, self).get_queryset().filter(status='published')
 
 
 class DataSetModel(models.Model):
     # Info for Page Fields
-    published = models.BooleanField(default=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -116,6 +121,9 @@ class DataSetModel(models.Model):
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
+
+    # To retrieve published dataset models
+    published = DataSetModelManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)
@@ -136,6 +144,3 @@ class DataSetModel(models.Model):
 
     def get_outcomes(self):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
-
-    def get_published(self):
-        return self.objects.all().filter(published=True)

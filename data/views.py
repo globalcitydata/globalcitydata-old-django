@@ -12,7 +12,7 @@ def detailView(request, slug):
 
 
 def homeView(request):
-    datasets = DataSet.objects.all()
+    datasets = DataSet.published.all()
     if request.method == 'POST':
         # Form was submitted
         if 'search' in request.POST:

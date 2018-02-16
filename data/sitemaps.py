@@ -15,3 +15,4 @@ class DatasetSitemap(Sitemap):
         # If want to specify URL for each object, add location method to class
         # def location(self, obj):
         #     return None
+
