@@ -7,7 +7,7 @@ class DatasetSitemap(Sitemap):
     priority = 0.5  # Relevance of blog posts in website
 
     def items(self):  # Queryset objects to include in sitemap
-        return DataSet.objects.all()
+        return DataSet.published.all()
 
     def lastmod(self, obj):  # Receives each object returned by items and returns last time object is modified
         return obj.publish

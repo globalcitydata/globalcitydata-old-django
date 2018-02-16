@@ -46,17 +46,17 @@ class DataSetFilter():
     def filterScales(self, scales_q):
         scales = set()
         if scales_q:
-            scales = set(DataSet.published.all().filter(scales__in=scales_q))
+            scales = set(DataSet.published.filter(scales__in=scales_q))
         return scales
 
     def filterParams(self, params_q):
         params = set()
         if params_q:
-            params = set(DataSet.published.all().filter(parameters__in=params_q))
+            params = set(DataSet.published.filter(parameters__in=params_q))
         return params
 
     def filterOutcomes(self, outcomes_q):
         outcomes = set()
         if outcomes_q:
-            outcomes = set(DataSet.published.all().filter(outcomes__in=outcomes_q))
+            outcomes = set(DataSet.published.filter(outcomes__in=outcomes_q))
         return outcomes

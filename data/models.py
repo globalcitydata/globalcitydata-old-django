@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 
 # Filters
 class Scale(models.Model):
@@ -52,9 +51,9 @@ class Outcome(models.Model):
 
 
 # DataSets
-class DataSetManager(models.Manager):
+class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super(DataSetManager, self).get_queryset().filter(publish=True)
+        return super().get_queryset().filter(publish=True)
 
 
 class DataSet(models.Model):
@@ -73,7 +72,7 @@ class DataSet(models.Model):
     owner = models.CharField(max_length=50, default='')
 
     # To retrieve published datasets
-    published = DataSetManager()
+    published = PublishedManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)
@@ -96,11 +95,6 @@ class DataSet(models.Model):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
 
 
-class DataSetModelManager(models.Manager):
-    def get_queryset(self):
-        return super(DataSetModelManager, self).get_queryset().filter(publish=True)
-
-
 class DataSetModel(models.Model):
     # Info for Page Fields
     publish = models.BooleanField(default=True)
@@ -117,7 +111,7 @@ class DataSetModel(models.Model):
     owner = models.CharField(max_length=50, default='')
 
     # To retrieve published dataset models
-    published = DataSetModelManager()
+    published = PublishedManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)
