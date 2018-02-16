@@ -15,7 +15,7 @@ def contactView(request):
                 send_mail(subject, message, from_email, ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid Header Found')
-            return redirect('success')
+            return redirect('sendemail:success')
     else:
         contactForm = ContactForm()
     return render(request, 'sendemail/email.html', {'contactForm': contactForm})
@@ -25,15 +25,16 @@ def submitDatasetView(request):
     if request.method == 'POST':
         datasetSubmitForm = DatasetSubmitForm(request.POST)
         if datasetSubmitForm.is_valid():
-            cd = DatasetSubmitForm.cleaned_data
+            cd = datasetSubmitForm.cleaned_data
             title = cd['title']
             description = cd['description']
+            context = cd['context']
             contact_details = cd['contact_details']
             try:
                 send_mail(title, description, contact_details, ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid Header Found')
-            return redirect('success')
+            return redirect('sendemail:success')
     else:
         datasetSubmitForm = DatasetSubmitForm()
     return render(request, 'sendemail/datasetSubmit.html', {'datasetSubmitForm': datasetSubmitForm})
