@@ -2,12 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-STATUS_CHOICES = (
-    ('draft', 'Draft'),
-    ('published', 'Published'),
-)
-
-
 # Filters
 class Scale(models.Model):
     SCALE_CHOICES = (
@@ -60,12 +54,12 @@ class Outcome(models.Model):
 # DataSets
 class DataSetManager(models.Manager):
     def get_queryset(self):
-        return super(DataSetManager, self).get_queryset().filter(status='published')
+        return super(DataSetManager, self).get_queryset().filter(publish=True)
 
 
 class DataSet(models.Model):
     # Info for Page Fields
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
+    publish = models.BooleanField(default=True)
     title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -104,12 +98,12 @@ class DataSet(models.Model):
 
 class DataSetModelManager(models.Manager):
     def get_queryset(self):
-        return super(DataSetModelManager, self).get_queryset().filter(status='published')
+        return super(DataSetModelManager, self).get_queryset().filter(publish=True)
 
 
 class DataSetModel(models.Model):
     # Info for Page Fields
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
+    publish = models.BooleanField(default=True)
     title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
