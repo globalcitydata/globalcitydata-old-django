@@ -74,6 +74,9 @@
 #datasets {
   background: linear-gradient(to bottom right, white, black);
 }
+#datasets #emptyDatasets {
+  font-size: 1.3rem;
+}
 
 /* Dataset Detail */
 #detail .btn {
