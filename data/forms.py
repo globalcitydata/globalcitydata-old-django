@@ -28,3 +28,27 @@ class QueryForm(forms.ModelForm):
     class Meta:
         model = DataSet
         fields = ['scales', 'parameters', 'outcomes']
+
+
+class DatasetForm(forms.ModelForm):
+    scales = forms.ModelMultipleChoiceField(
+        queryset=Scale.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    parameters = forms.ModelMultipleChoiceField(
+        queryset=Parameter.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    outcomes = forms.ModelMultipleChoiceField(
+        queryset=Outcome.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    class Meta:
+        model = DataSet
+        fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+                  'technical_details', 'applicable_models', 'relevant_publications', 'owner',
+                  'scales', 'parameters', 'outcomes']

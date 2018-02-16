@@ -60,6 +60,7 @@ class DataSetManager(models.Manager):
 
 class DataSet(models.Model):
     # Info for Page Fields
+    published = models.BooleanField(default=True)
     title = models.CharField(max_length=20, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -71,7 +72,6 @@ class DataSet(models.Model):
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
-    publish = models.DateTimeField(default=timezone.now)  # used when you want to specify specific date time in model
 
     # Filters
     scales = models.ManyToManyField(Scale)
@@ -92,3 +92,50 @@ class DataSet(models.Model):
 
     def get_outcomes(self):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
+
+    def get_published(self):
+        return self.objects.all().filter(published=True)
+
+
+class DataSetModelManager(models.Manager):
+    def get_queryset(self):
+        return super(DataSetModelManager, self).get_queryset().all()
+
+
+class DataSetModel(models.Model):
+    # Info for Page Fields
+    published = models.BooleanField(default=True)
+    title = models.CharField(max_length=20, default='', unique=True)
+    slug = models.SlugField(max_length=50, default='', unique=True)
+    description = models.CharField(max_length=250, default='')
+    context = models.CharField(max_length=100, default='')
+    key_takeaways = models.CharField(max_length=50, default='')
+    sample_uses_and_visualization = models.CharField(max_length=100, default='')
+    technical_details = models.CharField(max_length=100, default='')
+    applicable_models = models.CharField(max_length=100, default='')
+    relevant_publications = models.CharField(max_length=50, default='')
+    contact_details = models.EmailField(max_length=50, default='example@gmail.com')
+    owner = models.CharField(max_length=50, default='')
+
+    # Filters
+    scales = models.ManyToManyField(Scale)
+    parameters = models.ManyToManyField(Parameter)
+    outcomes = models.ManyToManyField(Outcome)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse(viewname='data:detail', kwargs={'slug': self.slug})
+
+    def get_scales(self):
+        return ", ".join([scale.title for scale in self.scales.all()])
+
+    def get_parameters(self):
+        return ", ".join([param.title for param in self.parameters.all()])
+
+    def get_outcomes(self):
+        return ", ".join([outcome.title for outcome in self.outcomes.all()])
+
+    def get_published(self):
+        return self.objects.all().filter(published=True)
