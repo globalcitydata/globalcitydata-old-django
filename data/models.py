@@ -60,7 +60,7 @@ class PublishedManager(models.Manager):
 
 class DataSet(models.Model):
     # Info for Page Fields
-    publish = models.BooleanField(default=True)
+    publish = models.NullBooleanField(default=True)
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -100,7 +100,7 @@ class DataSet(models.Model):
 
 class DataSetModel(models.Model):
     # Info for Page Fields
-    publish = models.BooleanField(default=True)
+    publish = models.NullBooleanField(default=True)
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
