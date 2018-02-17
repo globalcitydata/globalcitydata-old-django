@@ -79,8 +79,8 @@ class DataSet(models.Model):
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
 
-    # To retrieve published datasets
-    published = PublishedManager()
+    objects = models.Manager()  # The default manager.
+    published = PublishedManager()  # Retrieve published datasets
 
     # Filters
     scales = models.ManyToManyField(Scale)
@@ -119,8 +119,8 @@ class DataSetModel(models.Model):
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
 
-    # To retrieve published dataset models
-    published = PublishedManager()
+    objects = models.Manager()  # The default manager.
+    published = PublishedManager()  # Retrieve published datasets
 
     # Filters
     scales = models.ManyToManyField(Scale)
