@@ -2,6 +2,11 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
+STATUS_CHOICES = (
+    ('draft', 'Draft'),
+    ('published', 'Published'),
+)
+
 
 # Filters
 class Scale(models.Model):
@@ -55,12 +60,12 @@ class Outcome(models.Model):
 # DataSets
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(publish=True)
+        return super().get_queryset().filter(status='published')
 
 
 class DataSet(models.Model):
     # Info for Page Fields
-    publish = models.NullBooleanField(default=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -100,7 +105,7 @@ class DataSet(models.Model):
 
 class DataSetModel(models.Model):
     # Info for Page Fields
-    publish = models.NullBooleanField(default=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
