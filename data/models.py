@@ -2,9 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-STATUS_CHOICES = (
-    ('yes', 'Yes'),
-    ('no', 'No'),
+PUBLISH_CHOICES = (
+    (True, 'True'),
+    (False, 'False'),
 )
 
 
@@ -60,13 +60,13 @@ class Outcome(models.Model):
 # DataSets
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(publish='yes')
+        return super().get_queryset().filter(publish=True)
 
 
 class DataSet(models.Model):
     # Info for Page Fields
-    publish = models.CharField(max_length=10, choices = STATUS_CHOICES, default='Yes')
-    title = models.CharField(max_length=20, default='', unique=True)
+    publish = models.CharField(max_length=10, choices=PUBLISH_CHOICES, default=True)
+    title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
     context = models.CharField(max_length=100, default='')
@@ -105,8 +105,8 @@ class DataSet(models.Model):
 
 class DataSetModel(models.Model):
     # Info for Page Fields
-    publish = models.CharField(max_length=10, choices = STATUS_CHOICES, default='Yes')
-    title = models.CharField(max_length=20, default='', unique=True)
+    publish = models.CharField(max_length=10, choices=PUBLISH_CHOICES, default=True)
+    title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
     context = models.CharField(max_length=100, default='')
