@@ -27,16 +27,16 @@ admin.site.register(DataSetModel, DataSetModelAdmin)
 
 # Only Need Following To Change DataSet Tags
 
-# class ScaleAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Scale, ScaleAdmin)
-#
-#
-# class ParameterAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Parameter, ParameterAdmin)
-#
-#
-# class OutcomeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Outcome, OutcomeAdmin)
+class ScaleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Scale, ScaleAdmin)
+
+
+class ParameterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Parameter, ParameterAdmin)
+
+
+class OutcomeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Outcome, OutcomeAdmin)
