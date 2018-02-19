@@ -24,22 +24,12 @@ class DataFilter():
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
         scales = self.filterScales(scales_q, self.type)
-        print(scales_q)
-        print(scales)
         params_q = Parameter.objects.all().filter(title__icontains=query)
         params = self.filterParams(params_q, self.type)
-        print(params_q)
-        print(params)
         outcomes_q = Outcome.objects.all().filter(title__icontains=query)
         outcomes = self.filterOutcomes(outcomes_q, self.type)
-        print(outcomes_q)
-        print(outcomes)
-        print(dataset_search)
-        print(model_search)
         # Set union of all datasets
         datasets = set.union(dataset_search, model_search, scales, params, outcomes)
-        print(datasets)
-
         return datasets
 
     def getDatasets(self):
@@ -71,10 +61,10 @@ class DataFilter():
         outcomes = self.filterOutcomes(outcomes_q, self.type)
 
         # Intersect datasets
-        datasets = set.union(scales, params, outcomes)
-        if not datasets:
-            datasets = DataSet.published.all()
-        return datasets
+        models = set.union(scales, params, outcomes)
+        if not models:
+            models = DataSetModel.published.all()
+        return models
 
     def getDatasetsAndModels(self):
         # Get scales

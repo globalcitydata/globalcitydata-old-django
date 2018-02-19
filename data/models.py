@@ -81,6 +81,7 @@ class Base(models.Model):
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
+    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
