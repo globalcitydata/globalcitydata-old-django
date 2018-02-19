@@ -6,6 +6,9 @@ STATUS_CHOICES = (
     ('draft', 'Draft'),
     ('published', 'Published'),
 )
+TYPE_CHOICES = (
+    ('mod')
+)
 
 
 # Filters
@@ -78,6 +81,7 @@ class DataSet(models.Model):
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
+    type = models.CharField(max_length=10, default='dataset')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
@@ -118,6 +122,7 @@ class DataSetModel(models.Model):
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
+    type = models.CharField(max_length=10, default='model')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
