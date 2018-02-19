@@ -7,7 +7,10 @@ from .filters import DataFilter
 
 
 def detailView(request, slug):
-    dataset = get_object_or_404(DataSet, slug=slug)
+    try:
+        dataset = DataSet.published.get(slug=slug)
+    except DataSet.DoesNotExist:
+        dataset = get_object_or_404(DataSetModel, slug=slug)
     return render(request=request, template_name='data/dataset/detail.html', context={'dataset': dataset})
 
 
