@@ -1,11 +1,11 @@
 from django import forms
-from .models import DataSet, DataSetModel, Scale, Parameter, Outcome
+from .models import Base, DataSet, DataSetModel, Scale, Parameter, Outcome
 
 
 class SearchForm(forms.Form):
     query = forms.CharField(label='search', max_length=50, required=False,
                             widget=forms.TextInput(attrs={'class': 'form-control',
-                                                          'placeholder': 'Search for datasets'}))
+                                                          'placeholder': 'Search for datasets and models'}))
 
 
 class QueryForm(forms.ModelForm):
@@ -26,29 +26,7 @@ class QueryForm(forms.ModelForm):
     )
 
     class Meta:
-        model = DataSet
-        fields = ['scales', 'parameters', 'outcomes']
-
-
-class DatasetModelForm(forms.ModelForm):
-    scales = forms.ModelMultipleChoiceField(
-        queryset=Scale.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-    parameters = forms.ModelMultipleChoiceField(
-        queryset=Parameter.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-    outcomes = forms.ModelMultipleChoiceField(
-        queryset=Outcome.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-
-    class Meta:
-        model = DataSetModel
+        model = Base
         fields = ['scales', 'parameters', 'outcomes']
 
 

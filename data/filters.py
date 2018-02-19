@@ -13,13 +13,13 @@ class DataFilter():
         dataset_search = set(DataSet.published.annotate(
             search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                                 'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
-                                'owner'
+                                'owner', 'type'
                                 )).filter(search=query))
         # Perform dataset model field search
         model_search = set(DataSetModel.published.annotate(
             search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                                 'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
-                                'owner'
+                                'owner', 'type'
                                 )).filter(search=query))
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
@@ -62,19 +62,36 @@ class DataFilter():
     def getModels(self):
         # Get scales
         scales_q = self.cd['scales']
-        scales = self.filterScales(scales_q)
+        scales = self.filterScales(scales_q, self.type)
         # Get parameters
         params_q = self.cd['parameters']
-        params = self.filterParams(params_q)
+        params = self.filterParams(params_q, self.type)
         # Get outcomes
         outcomes_q = self.cd['outcomes']
-        outcomes = self.filterOutcomes(outcomes_q)
+        outcomes = self.filterOutcomes(outcomes_q, self.type)
 
         # Intersect datasets
         datasets = set.union(scales, params, outcomes)
         if not datasets:
             datasets = DataSet.published.all()
         return datasets
+
+    def getDatasetsAndModels(self):
+        # Get scales
+        scales_q = self.cd['scales']
+        scales = self.filterScales(scales_q, self.type)
+        # Get parameters
+        params_q = self.cd['parameters']
+        params = self.filterParams(params_q, self.type)
+        # Get outcomes
+        outcomes_q = self.cd['outcomes']
+        outcomes = self.filterOutcomes(outcomes_q, self.type)
+
+        # Intersect datasets
+        response = set.union(scales, params, outcomes)
+        if not response:
+            response = set.union(set(DataSet.published.all()), set(DataSetModel.published.all()))
+        return response
 
     def filterScales(self, scales_q, type):
         response = set()

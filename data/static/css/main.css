@@ -65,16 +65,16 @@
 }
 
 /* About */
-#about .container, #datasets .container, #footer, #detail {
+#about .container, #data .container, #footer, #detail {
   padding-top: 75px;
   padding-bottom: 75px;
 }
 
 /* Datasets */
-#datasets {
+#data {
   background: linear-gradient(to bottom right, white, black);
 }
-#datasets #emptyDatasets {
+#data #emptyDatasets {
   font-size: 1.3rem;
 }
 
