@@ -81,7 +81,7 @@ class DataSet(models.Model):
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=10, default='dataset')
+    type = models.CharField(max_length=10, default='Dataset')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
@@ -122,7 +122,7 @@ class DataSetModel(models.Model):
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=10, default='model')
+    type = models.CharField(max_length=10, default='Model')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
