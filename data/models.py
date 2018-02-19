@@ -7,6 +7,11 @@ STATUS_CHOICES = (
     ('published', 'Published'),
 )
 
+DATA_TYPES = (
+    ('Dataset', 'Dataset'),
+    ('Model', 'Model'),
+)
+
 # Filters
 class Scale(models.Model):
     SCALE_CHOICES = (
@@ -105,8 +110,8 @@ class Base(models.Model):
 
 
 class DataSet(Base):
-    type = models.CharField(max_length=10, default='Dataset')
+    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
 
 
 class DataSetModel(Base):
-    type = models.CharField(max_length=10, default='Model')
+    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Model')
