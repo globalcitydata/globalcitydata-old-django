@@ -5,9 +5,9 @@ from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 class DataFilter():
     def __init__(self, cd):
         self.cd = cd
-        self.type = None
 
     def search(self):
+        self.type = None
         query = self.cd['query']
         # Perform dataset field search
         data_search = set(DataSet.published.annotate(
@@ -44,8 +44,11 @@ class DataFilter():
         outcomes = self.filterOutcomes(outcomes_q)
         # Intersect datasets
         data = set.union(scales, params, outcomes)
-        if not data and self.type is None:
-            data = DataSet.published.all()
+        if not data:
+            if self.type:
+                data = DataSet.published.filter(type__title=self.type)
+            else:
+                data = DataSet.published.all()
         return data
 
     def filterScales(self, scales_q):
