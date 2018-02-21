@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from .models import DataSet
+from .models import Data
 
 
 class DatasetSitemap(Sitemap):
@@ -7,7 +7,7 @@ class DatasetSitemap(Sitemap):
     priority = 0.5  # Relevance of blog posts in website
 
     def items(self):  # Queryset objects to include in sitemap
-        return DataSet.published.all()
+        return Data.published.all()
 
     def lastmod(self, obj):  # Receives each object returned by items and returns last time object is modified
         return obj.updated

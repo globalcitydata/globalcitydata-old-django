@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import DataSet, DataSetModel, Scale, Parameter, Outcome
+from .models import Data, DataSetModel, Type, Scale, Parameter, Outcome
 from django.forms import CheckboxSelectMultiple
 
 
@@ -12,7 +12,7 @@ class DataSetAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-admin.site.register(DataSet, DataSetAdmin)
+admin.site.register(Data, DataSetAdmin)
 
 
 class DataSetModelAdmin(admin.ModelAdmin):
@@ -40,3 +40,8 @@ admin.site.register(DataSetModel, DataSetModelAdmin)
 # class OutcomeAdmin(admin.ModelAdmin):
 #     list_display = ('title', 'get_datasets')
 # admin.site.register(Outcome, OutcomeAdmin)
+
+
+# class TypeAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_datasets')
+# admin.site.register(Type, TypeAdmin)

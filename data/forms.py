@@ -1,5 +1,5 @@
 from django import forms
-from .models import Base, DataSet, DataSetModel, Scale, Parameter, Outcome
+from .models import Data, Type, Scale, Parameter, Outcome
 
 
 class SearchForm(forms.Form):
@@ -9,6 +9,11 @@ class SearchForm(forms.Form):
 
 
 class QueryForm(forms.ModelForm):
+    type = forms.ModelMultipleChoiceField(
+        queryset=Type.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
     scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -26,8 +31,8 @@ class QueryForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Base
-        fields = ['scales', 'parameters', 'outcomes']
+        model = Data
+        fields = ['type', 'scales', 'parameters', 'outcomes']
 
 
 class DatasetSubmitForm(forms.ModelForm):
@@ -48,31 +53,31 @@ class DatasetSubmitForm(forms.ModelForm):
     )
 
     class Meta:
-        model = DataSet
+        model = Data
         fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
-                  'technical_details', 'applicable_models', 'relevant_publications', 'owner',
+                  'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
                   'scales', 'parameters', 'outcomes']
 
 
-class DatasetModelSubmitForm(forms.ModelForm):
-    scales = forms.ModelMultipleChoiceField(
-        queryset=Scale.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-    parameters = forms.ModelMultipleChoiceField(
-        queryset=Parameter.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-    outcomes = forms.ModelMultipleChoiceField(
-        queryset=Outcome.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-
-    class Meta:
-        model = DataSetModel
-        fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
-                  'technical_details', 'applicable_models', 'relevant_publications', 'owner',
-                  'scales', 'parameters', 'outcomes']
+# class DatasetModelSubmitForm(forms.ModelForm):
+#     scales = forms.ModelMultipleChoiceField(
+#         queryset=Scale.objects.all(),
+#         widget=forms.CheckboxSelectMultiple,
+#         required=False,
+#     )
+#     parameters = forms.ModelMultipleChoiceField(
+#         queryset=Parameter.objects.all(),
+#         widget=forms.CheckboxSelectMultiple,
+#         required=False,
+#     )
+#     outcomes = forms.ModelMultipleChoiceField(
+#         queryset=Outcome.objects.all(),
+#         widget=forms.CheckboxSelectMultiple,
+#         required=False,
+#     )
+#
+#     class Meta:
+#         model = DataSetModel
+#         fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+#                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
+#                   'scales', 'parameters', 'outcomes']

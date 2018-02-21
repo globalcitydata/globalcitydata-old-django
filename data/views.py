@@ -1,16 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, FormView
 from django.http import HttpResponse
-from .models import DataSet, DataSetModel
+from .models import Data
 from .forms import QueryForm, SearchForm
 from .filters import DataFilter
 
 
 def detailView(request, slug):
-    try:
-        dataset = DataSet.published.get(slug=slug)
-    except DataSet.DoesNotExist:
-        dataset = get_object_or_404(DataSetModel, slug=slug)
+    dataset = get_object_or_404(Data, slug=slug)
     return render(request=request, template_name='data/dataset/detail.html', context={'dataset': dataset})
 
 
@@ -28,13 +25,11 @@ def homeView(request):
             searchForm = SearchForm()
             if queryForm.is_valid():
                 dataset_filter = DataFilter(cd=queryForm.cleaned_data, type='all')
-                response_data = dataset_filter.getDatasets()
+                response_data = dataset_filter.getData()
     else:
         queryForm = QueryForm()
         searchForm = SearchForm()
-        datasets = set(DataSet.published.all())
-        models = set(DataSetModel.published.all())
-        response_data = set.union(datasets, models)
+        response_data = set(Data.published.all())
     return render(request=request, template_name='data/dataset/home.html', context={'response_data': response_data,
                                                                                     'queryForm': queryForm,
                                                                                     'searchForm': searchForm})

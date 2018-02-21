@@ -12,6 +12,7 @@ DATA_TYPES = (
     ('Model', 'Model'),
 )
 
+
 # Filters
 class Scale(models.Model):
     SCALE_CHOICES = (
@@ -25,7 +26,8 @@ class Scale(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
+        return ", ".join([dataset.title for dataset in self.d])
+
 
 
 class Parameter(models.Model):
@@ -41,7 +43,7 @@ class Parameter(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
+        return ", ".join([dataset.title for dataset in self.data_set.all()])
 
 
 class Outcome(models.Model):
@@ -58,7 +60,17 @@ class Outcome(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
+        return ", ".join([dataset.title for dataset in self.data_set.all()])
+
+
+class Type(models.Model):
+    title = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
+
+    def __str__(self):
+        return self.title
+
+    def get_datasets(self):
+        return ", ".join([dataset.title for dataset in self.data_set.all()])
 
 
 # DataSets
@@ -67,7 +79,18 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(status='published')
 
 
-class Base(models.Model):
+class DatasetManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status='published').filter(type__title='Dataset')
+        pass
+
+
+class ModelsManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status='published').filter(type__title='Model')
+        pass
+
+class Data(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
@@ -76,20 +99,22 @@ class Base(models.Model):
     key_takeaways = models.CharField(max_length=50, default='')
     sample_uses_and_visualization = models.CharField(max_length=100, default='')
     technical_details = models.CharField(max_length=100, default='')
-    applicable_models = models.CharField(max_length=100, default='')
+    applicable_models_or_datasets = models.CharField(max_length=100, default='')
     relevant_publications = models.CharField(max_length=50, default='')
     contact_details = models.EmailField(max_length=50, default='example@gmail.com')
     owner = models.CharField(max_length=50, default='')
     updated = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
+    datasets = DatasetManager()
+    models = ModelsManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
 
     def __str__(self):
         return self.title
@@ -107,12 +132,4 @@ class Base(models.Model):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
 
     class Meta:
-        abstract = True
-
-
-class DataSet(Base):
-    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
-
-
-class DataSetModel(Base):
-    type = models.CharField(max_length=10, choices=DATA_TYPES, default='Model')
+        ordering = ('title',)

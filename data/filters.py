@@ -1,4 +1,4 @@
-from .models import DataSet, DataSetModel, Scale, Parameter, Outcome
+from .models import Data, Scale, Parameter, Outcome
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
@@ -10,17 +10,17 @@ class DataFilter():
     def search(self):
         query = self.cd['query']
         # Perform dataset field search
-        dataset_search = set(DataSet.published.annotate(
+        data_search = set(Data.published.annotate(
             search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                                 'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
-                                'owner', 'type'
+                                'owner'
                                 )).filter(search=query))
-        # Perform dataset model field search
-        model_search = set(DataSetModel.published.annotate(
-            search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
-                                'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
-                                'owner', 'type'
-                                )).filter(search=query))
+        # # Perform dataset model field search
+        # model_search = set(DataSetModel.published.annotate(
+        #     search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+        #                         'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
+        #                         'owner', 'type'
+        #                         )).filter(search=query))
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
         scales = self.filterScales(scales_q, self.type)
@@ -28,11 +28,10 @@ class DataFilter():
         params = self.filterParams(params_q, self.type)
         outcomes_q = Outcome.objects.all().filter(title__icontains=query)
         outcomes = self.filterOutcomes(outcomes_q, self.type)
-        # Set union of all datasets
-        datasets = set.union(dataset_search, model_search, scales, params, outcomes)
-        return datasets
+        # return union of all datasets and models
+        return set.union(data_search, scales, params, outcomes)
 
-    def getDatasets(self):
+    def getData(self):
         # Get scales
         scales_q = self.cd['scales']
         scales = self.filterScales(scales_q, self.type)
@@ -44,10 +43,10 @@ class DataFilter():
         outcomes = self.filterOutcomes(outcomes_q, self.type)
 
         # Intersect datasets
-        datasets = set.union(scales, params, outcomes)
-        if not datasets:
-            datasets = DataSet.published.all()
-        return datasets
+        data = set.union(scales, params, outcomes)
+        if not data:
+            data = Data.published.all()
+        return data
 
     def getModels(self):
         # Get scales
@@ -63,10 +62,10 @@ class DataFilter():
         # Intersect datasets
         models = set.union(scales, params, outcomes)
         if not models:
-            models = DataSetModel.published.all()
+            models = Data.models.all()
         return models
 
-    def getDatasetsAndModels(self):
+    def getDatasets(self):
         # Get scales
         scales_q = self.cd['scales']
         scales = self.filterScales(scales_q, self.type)
@@ -78,46 +77,40 @@ class DataFilter():
         outcomes = self.filterOutcomes(outcomes_q, self.type)
 
         # Intersect datasets
-        response = set.union(scales, params, outcomes)
-        if not response:
-            response = set.union(set(DataSet.published.all()), set(DataSetModel.published.all()))
-        return response
+        datasets = set.union(scales, params, outcomes)
+        if not datasets:
+            datasets = set(Data.datasets.all())
+        return datasets
 
     def filterScales(self, scales_q, type):
-        response = set()
+        scales = set()
         if scales_q:
             if type == 'model':
-                response = set(DataSetModel.published.filter(scales__in=scales_q))
+                scales = set(Data.models.filter(scales__in=scales_q))
             elif type == 'dataset':
-                response = set(DataSet.published.filter(scales__in=scales_q))
+                scales = set(Data.datasets.filter(scales__in=scales_q))
             else:
-                scales = set(DataSet.published.filter(scales__in=scales_q))
-                models = set(DataSetModel.published.filter(scales__in=scales_q))
-                response = set.union(scales, models)
-        return response
+                scales = set(Data.published.filter(scales__in=scales_q))
+        return scales
 
     def filterParams(self, params_q, type):
-        response = set()
+        params = set()
         if params_q:
             if type == 'model':
-                response = set(DataSetModel.published.filter(parameters__in=params_q))
+                params = set(Data.models.filter(parameters__in=params_q))
             elif type == 'dataset':
-                response = set(DataSet.published.filter(parameters__in=params_q))
+                params = set(Data.datasets.filter(parameters__in=params_q))
             else:
-                params = set(DataSet.published.filter(parameters__in=params_q))
-                models = set(DataSetModel.published.filter(parameters__in=params_q))
-                response = set.union(params, models)
-        return response
+                params = set(Data.published.filter(parameters__in=params_q))
+        return params
 
     def filterOutcomes(self, outcomes_q, type):
-        response = set()
+        outcomes = set()
         if outcomes_q:
             if type == 'model':
-                response = set(DataSetModel.published.filter(outcomes__in=outcomes_q))
+                outcomes = set(Data.models.filter(outcomes__in=outcomes_q))
             elif type == 'dataset':
-                response = set(DataSet.published.filter(outcomes__in=outcomes_q))
+                outcomes = set(Data.datasets.filter(outcomes__in=outcomes_q))
             else:
-                outcomes = set(DataSet.published.filter(outcomes__in=outcomes_q))
-                models = set(DataSetModel.published.filter(outcomes__in=outcomes_q))
-                response = set.union(outcomes, models)
-        return response
+                outcomes = set(Data.published.filter(outcomes__in=outcomes_q))
+        return outcomes
