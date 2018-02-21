@@ -1,4 +1,4 @@
-from .models import Data, Scale, Parameter, Outcome
+from .models import DataSet, Scale, Parameter, Outcome
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
@@ -10,7 +10,7 @@ class DataFilter():
     def search(self):
         query = self.cd['query']
         # Perform dataset field search
-        data_search = set(Data.published.annotate(
+        data_search = set(DataSet.published.annotate(
             search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                                 'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'contact_details',
                                 'owner'
@@ -45,7 +45,7 @@ class DataFilter():
         # Intersect datasets
         data = set.union(scales, params, outcomes)
         if not data:
-            data = Data.published.all()
+            data = DataSet.published.all()
         return data
 
     def getModels(self):
@@ -62,7 +62,7 @@ class DataFilter():
         # Intersect datasets
         models = set.union(scales, params, outcomes)
         if not models:
-            models = Data.datasetModels.all()
+            models = DataSet.datasetModels.all()
         return models
 
     def getDatasets(self):
@@ -79,38 +79,38 @@ class DataFilter():
         # Intersect datasets
         datasets = set.union(scales, params, outcomes)
         if not datasets:
-            datasets = set(Data.datasets.all())
+            datasets = set(DataSet.datasets.all())
         return datasets
 
     def filterScales(self, scales_q, type):
         scales = set()
         if scales_q:
             if type == 'model':
-                scales = set(Data.datasetModels.filter(scales__in=scales_q))
+                scales = set(DataSet.datasetModels.filter(scales__in=scales_q))
             elif type == 'dataset':
-                scales = set(Data.datasets.filter(scales__in=scales_q))
+                scales = set(DataSet.datasets.filter(scales__in=scales_q))
             else:
-                scales = set(Data.published.filter(scales__in=scales_q))
+                scales = set(DataSet.published.filter(scales__in=scales_q))
         return scales
 
     def filterParams(self, params_q, type):
         params = set()
         if params_q:
             if type == 'model':
-                params = set(Data.datasetModels.filter(parameters__in=params_q))
+                params = set(DataSet.datasetModels.filter(parameters__in=params_q))
             elif type == 'dataset':
-                params = set(Data.datasets.filter(parameters__in=params_q))
+                params = set(DataSet.datasets.filter(parameters__in=params_q))
             else:
-                params = set(Data.published.filter(parameters__in=params_q))
+                params = set(DataSet.published.filter(parameters__in=params_q))
         return params
 
     def filterOutcomes(self, outcomes_q, type):
         outcomes = set()
         if outcomes_q:
             if type == 'model':
-                outcomes = set(Data.datasetModels.filter(outcomes__in=outcomes_q))
+                outcomes = set(DataSet.datasetModels.filter(outcomes__in=outcomes_q))
             elif type == 'dataset':
-                outcomes = set(Data.datasets.filter(outcomes__in=outcomes_q))
+                outcomes = set(DataSet.datasets.filter(outcomes__in=outcomes_q))
             else:
-                outcomes = set(Data.published.filter(outcomes__in=outcomes_q))
+                outcomes = set(DataSet.published.filter(outcomes__in=outcomes_q))
         return outcomes

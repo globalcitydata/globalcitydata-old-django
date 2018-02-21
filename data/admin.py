@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import Data, Type, Scale, Parameter, Outcome
+from .models import DataSet, Type, Scale, Parameter, Outcome
 from django.forms import CheckboxSelectMultiple
 
 
@@ -12,7 +12,7 @@ class DataAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-admin.site.register(Data, DataAdmin)
+admin.site.register(DataSet, DataAdmin)
 
 
 # class DataSetModelAdmin(admin.ModelAdmin):
@@ -27,21 +27,21 @@ admin.site.register(Data, DataAdmin)
 
 # Only Need Following To Change DataSet Tags
 
-# class ScaleAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Scale, ScaleAdmin)
-#
-#
-# class ParameterAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Parameter, ParameterAdmin)
-#
-#
-# class OutcomeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Outcome, OutcomeAdmin)
+class ScaleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Scale, ScaleAdmin)
 
 
-# class TypeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_datasets')
-# admin.site.register(Type, TypeAdmin)
+class ParameterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Parameter, ParameterAdmin)
+
+
+class OutcomeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_datasets')
+admin.site.register(Outcome, OutcomeAdmin)
+
+
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+admin.site.register(Type, TypeAdmin)

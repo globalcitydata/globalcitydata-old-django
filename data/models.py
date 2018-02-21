@@ -26,7 +26,7 @@ class Scale(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.d])
+        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
 
@@ -43,7 +43,7 @@ class Parameter(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.data_set.all()])
+        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
 class Outcome(models.Model):
@@ -60,7 +60,7 @@ class Outcome(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.data_set.all()])
+        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
 class Type(models.Model):
@@ -69,8 +69,8 @@ class Type(models.Model):
     def __str__(self):
         return self.title
 
-    def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.objects.all()])
+    # def get_datasets(self):
+    #     return ", ".join([dataset.title for dataset in self.objects.all()])
 
 
 # DataSets
@@ -82,15 +82,13 @@ class PublishedManager(models.Manager):
 class DatasetManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status='published')
-        pass
 
 
 class DatasetModelsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status='published')
-        pass
 
-class Data(models.Model):
+class DataSet(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
@@ -114,7 +112,7 @@ class Data(models.Model):
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
-    # type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
 
     def __str__(self):
         return self.title

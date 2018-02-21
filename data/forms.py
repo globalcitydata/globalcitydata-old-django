@@ -1,5 +1,5 @@
 from django import forms
-from .models import Data, Type, Scale, Parameter, Outcome
+from .models import DataSet, Type, Scale, Parameter, Outcome
 
 
 class SearchForm(forms.Form):
@@ -31,7 +31,7 @@ class QueryForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Data
+        model = DataSet
         fields = ['type', 'scales', 'parameters', 'outcomes']
 
 
@@ -53,7 +53,7 @@ class DatasetSubmitForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Data
+        model = DataSet
         fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
                   'scales', 'parameters', 'outcomes']
