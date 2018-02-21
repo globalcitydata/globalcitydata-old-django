@@ -81,13 +81,13 @@ class PublishedManager(models.Manager):
 
 class DatasetManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status='published').filter(type__title='Dataset')
+        return super().get_queryset().filter(status='published')
         pass
 
 
-class ModelsManager(models.Manager):
+class DatasetModelsManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status='published').filter(type__title='Model')
+        return super().get_queryset().filter(status='published')
         pass
 
 class Data(models.Model):
@@ -108,7 +108,7 @@ class Data(models.Model):
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Retrieve published datasets
     datasets = DatasetManager()
-    models = ModelsManager()
+    datasetModels = DatasetModelsManager()
 
     # Filters
     scales = models.ManyToManyField(Scale)

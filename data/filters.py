@@ -62,7 +62,7 @@ class DataFilter():
         # Intersect datasets
         models = set.union(scales, params, outcomes)
         if not models:
-            models = Data.models.all()
+            models = Data.datasetModels.all()
         return models
 
     def getDatasets(self):
@@ -86,7 +86,7 @@ class DataFilter():
         scales = set()
         if scales_q:
             if type == 'model':
-                scales = set(Data.models.filter(scales__in=scales_q))
+                scales = set(Data.datasetModels.filter(scales__in=scales_q))
             elif type == 'dataset':
                 scales = set(Data.datasets.filter(scales__in=scales_q))
             else:
@@ -97,7 +97,7 @@ class DataFilter():
         params = set()
         if params_q:
             if type == 'model':
-                params = set(Data.models.filter(parameters__in=params_q))
+                params = set(Data.datasetModels.filter(parameters__in=params_q))
             elif type == 'dataset':
                 params = set(Data.datasets.filter(parameters__in=params_q))
             else:
@@ -108,7 +108,7 @@ class DataFilter():
         outcomes = set()
         if outcomes_q:
             if type == 'model':
-                outcomes = set(Data.models.filter(outcomes__in=outcomes_q))
+                outcomes = set(Data.datasetModels.filter(outcomes__in=outcomes_q))
             elif type == 'dataset':
                 outcomes = set(Data.datasets.filter(outcomes__in=outcomes_q))
             else:
