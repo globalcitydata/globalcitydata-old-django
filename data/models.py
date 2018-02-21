@@ -70,7 +70,7 @@ class Type(models.Model):
         return self.title
 
     def get_datasets(self):
-        return ", ".join([dataset.title for dataset in self.data_set.all()])
+        return ", ".join([dataset.title for dataset in self.objects.all()])
 
 
 # DataSets
@@ -114,7 +114,7 @@ class Data(models.Model):
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
+    # type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
 
     def __str__(self):
         return self.title

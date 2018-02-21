@@ -12,7 +12,7 @@ class DataFilter():
         # Perform dataset field search
         data_search = set(Data.published.annotate(
             search=SearchVector('title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
-                                'technical_details', 'applicable_models', 'relevant_publications', 'contact_details',
+                                'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'contact_details',
                                 'owner'
                                 )).filter(search=query))
         # # Perform dataset model field search
