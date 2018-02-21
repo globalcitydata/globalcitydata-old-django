@@ -63,13 +63,19 @@ class Outcome(models.Model):
 
 
 class Type(models.Model):
-    title = models.CharField(max_length=10, choices=DATA_TYPES)
+    title = models.CharField(max_length=10, choices=DATA_TYPES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
 
         # def get_datasets(self):
         #     return ", ".join([dataset.title for dataset in self.objects.all()])
+
+    def get_model(self):
+        return self.objects.all().filter(title='Model')
+
+    def get_dataset(self):
+        return self.objects.all().filter(title='Dataset')
 
 
 # DataSets
@@ -80,12 +86,12 @@ class PublishedManager(models.Manager):
 
 class DatasetManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status='published')
+        return super().get_queryset().filter(type__title='Dataset')
 
 
 class DatasetModelsManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(status='published')
+        return super().get_queryset().filter(type__title='Model')
 
 
 class DataSet(models.Model):

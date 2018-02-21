@@ -18,13 +18,13 @@ def homeView(request):
             queryForm = QueryForm()
             searchForm = SearchForm(request.POST)
             if searchForm.is_valid():
-                data_filter = DataFilter(cd=searchForm.cleaned_data, type='all')
+                data_filter = DataFilter(cd=searchForm.cleaned_data)
                 response_data = data_filter.search()
         elif 'query' in request.POST:
             queryForm = QueryForm(request.POST)
             searchForm = SearchForm()
             if queryForm.is_valid():
-                dataset_filter = DataFilter(cd=queryForm.cleaned_data, type='all')
+                dataset_filter = DataFilter(cd=queryForm.cleaned_data)
                 response_data = dataset_filter.getData()
     else:
         queryForm = QueryForm()

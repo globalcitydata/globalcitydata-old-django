@@ -9,9 +9,9 @@ class SearchForm(forms.Form):
 
 
 class QueryForm(forms.ModelForm):
-    type = forms.ModelMultipleChoiceField(
+    type = forms.ModelChoiceField(
         queryset=Type.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect,
         required=False,
     )
     scales = forms.ModelMultipleChoiceField(
