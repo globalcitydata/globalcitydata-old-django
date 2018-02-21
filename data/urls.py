@@ -22,8 +22,9 @@ app_name = 'data'
 urlpatterns = [
     path('collaborators/', TemplateView.as_view(template_name='data/staticpage/collaborators.html'), name='collaborators'),
     path('publications/', TemplateView.as_view(template_name='data/staticpage/publications.html'), name='publications'),
-    # Dataset Detail view
-    path('<str:slug>/', views.detailView, name='detail'),
-    # Must be last, Home/List view, with filter
-    path('', views.homeView, name='home'),
+    path('submit-data/', views.submitDatasetView, name='submitDataset'),
+    path('success/', views.successView, name='success'),
+    path('<str:slug>/', views.detailView, name='detail'),  # Dataset Detail view
+    # Must be last
+    path('', views.homeView, name='home'), # Home View
 ]

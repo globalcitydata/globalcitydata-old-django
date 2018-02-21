@@ -64,6 +64,11 @@
   border-radius: 3rem;
 }
 
+/* Submit Form */
+#submitForm {
+  max-width: 600px;
+}
+
 /* About */
 #about .container, #data .container, #footer, #detail {
   padding-top: 75px;

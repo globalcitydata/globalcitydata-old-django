@@ -4,6 +4,7 @@ from .models import DataSet, Type, Scale, Parameter, Outcome
 from django.forms import CheckboxSelectMultiple
 
 
+
 class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # built in feature
     list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status', 'type')  # built in feature

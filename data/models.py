@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 STATUS_CHOICES = (
     ('draft', 'Draft'),
@@ -95,7 +96,7 @@ class DatasetModelsManager(models.Manager):
 
 
 class DataSet(models.Model):
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -115,13 +116,18 @@ class DataSet(models.Model):
     datasetModels = DatasetModelsManager()
 
     # Filters
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if not self.slug:
+            self.slug = slugify(self.title)
 
     def get_absolute_url(self):
         return reverse(viewname='data:detail', kwargs={'slug': self.slug})

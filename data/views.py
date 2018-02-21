@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, FormView
 from django.http import HttpResponse
 from .models import DataSet
-from .forms import QueryForm, SearchForm
+from .forms import QueryForm, SearchForm, DatasetSubmitForm
 from .filters import DataFilter
 
 
@@ -33,3 +33,18 @@ def homeView(request):
     return render(request=request, template_name='data/dataset/home.html', context={'datasets': datasets,
                                                                                     'queryForm': queryForm,
                                                                                     'searchForm': searchForm})
+
+
+def submitDatasetView(request):
+    if request.method == 'POST':
+        datasetSubmitForm = DatasetSubmitForm(request.POST)
+        if datasetSubmitForm.is_valid():
+            datasetSubmitForm.a
+            return redirect('data:success')
+    else:
+        datasetSubmitForm = DatasetSubmitForm()
+    return render(request, 'data/dataset/datasetSubmit.html', {'datasetSubmitForm': datasetSubmitForm})
+
+
+def successView(request):
+    return render(request, 'sendemail/success.html')

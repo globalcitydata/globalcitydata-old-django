@@ -2,15 +2,17 @@
 
 {% block content %}
   <div class="container my-4" id="content">
-    <div class="d-block mx-auto text-center" style="max-width: 500px">
-      <h1 class="mb-4">Submit Dataset</h1>
+    <div class="d-block mx-auto" id="submitForm">
+      <h1 class="mb-4 text-center">Submit Dataset or Model</h1>
       <form method="post" id="datasetSubmitForm">
         {% csrf_token %}
         {% for field in datasetSubmitForm %}
           <div class="form-group">
+            {{ field.label }}
             {{ field }}
           </div>
         {% endfor %}
+{#        {{ datasetSubmitForm }}#}
         <button type="submit" class="btn btn-outline-primary">Submit</button>
       </form>
     </div>
