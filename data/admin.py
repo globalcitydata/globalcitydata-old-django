@@ -4,7 +4,7 @@ from .models import DataSet, Type, Scale, Parameter, Outcome
 from django.forms import CheckboxSelectMultiple
 
 
-class DataAdmin(admin.ModelAdmin):
+class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # built in feature
     list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status')  # built in feature
     list_filter = ('scales', 'parameters', 'outcomes', 'status')  # built in feature
@@ -12,7 +12,7 @@ class DataAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-admin.site.register(DataSet, DataAdmin)
+admin.site.register(DataSet, DataSetAdmin)
 
 
 # class DataSetModelAdmin(admin.ModelAdmin):

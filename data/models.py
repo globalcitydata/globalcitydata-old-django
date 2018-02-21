@@ -29,7 +29,6 @@ class Scale(models.Model):
         return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
-
 class Parameter(models.Model):
     PARAMETER_CHOICES = (
         ('Social', 'Social'),
@@ -64,13 +63,13 @@ class Outcome(models.Model):
 
 
 class Type(models.Model):
-    title = models.CharField(max_length=10, choices=DATA_TYPES, default='Dataset')
+    title = models.CharField(max_length=10, choices=DATA_TYPES)
 
     def __str__(self):
         return self.title
 
-    # def get_datasets(self):
-    #     return ", ".join([dataset.title for dataset in self.objects.all()])
+        # def get_datasets(self):
+        #     return ", ".join([dataset.title for dataset in self.objects.all()])
 
 
 # DataSets
@@ -87,6 +86,7 @@ class DatasetManager(models.Manager):
 class DatasetModelsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status='published')
+
 
 class DataSet(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
@@ -112,7 +112,7 @@ class DataSet(models.Model):
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, default='Dataset')
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
