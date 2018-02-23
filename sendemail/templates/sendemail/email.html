@@ -1,17 +1,29 @@
 {% extends 'data/base.html' %}
 
 {% block content %}
-  <div class="container my-4" id="content">
-    <div class="d-block mx-auto text-center" style="max-width: 500px">
+  <div class="container" id="content">
+    <div id="contactForm" class="d-block mx-auto text-center">
       <h1 class="mb-4">Contact Us</h1>
-      <form method="post" id="contactForm">
-        {% csrf_token %}
-        {% for field in contactForm %}
-          <div class="form-group">
-            {{ field }}
-          </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+      <form action="https://formspree.io/globalcitydata@gmail.com"
+            method="POST">
+        <!-- email -->
+        <div class="form-group">
+          <input class="form-control" type="email" name="Email Address" id="email" placeholder="your@email.com"
+                 required>
+        </div>
+        <!-- topic -->
+        <div class="form-group">
+          <input class="form-control" type="text" name="Topic" id="topic" placeholder="Subject" required>
+        </div>
+        <!-- message -->
+        <div class="form-group">
+          <textarea class="form-control" type="text" name="Message" id="message" maxlength="500" rows="12"
+                    placeholder="Your message" required></textarea>
+        </div>
+        <!-- submit -->
+        <div class="form-group text-center mt-4">
+          <input class="btn btn-outline-primary btn-lg" type="submit" value="Submit">
+        </div>
       </form>
     </div>
   </div>

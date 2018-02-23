@@ -12,7 +12,7 @@ def contactView(request):
             message = cd['message']
             from_email = cd['from_email']
             try:
-                send_mail(subject, message, from_email, ['admin@example.com'])
+                send_mail(subject, message, from_email, ['globalcitydata@gmail.com'], fail_silently=False)
             except BadHeaderError:
                 return HttpResponse('Invalid Header Found')
             return redirect('sendemail:success')

@@ -69,6 +69,13 @@
   max-width: 600px;
 }
 
+/* Contact Form */
+#contactForm {
+  max-width: 500px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 /* About */
 #about .container, #data .container, #footer, #detail {
   padding-top: 75px;
