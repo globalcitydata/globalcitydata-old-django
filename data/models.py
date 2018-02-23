@@ -96,7 +96,7 @@ class DatasetModelsManager(models.Manager):
 
 
 class DataSet(models.Model):
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
     description = models.CharField(max_length=250, default='')
@@ -124,10 +124,10 @@ class DataSet(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        super(DataSet, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse(viewname='data:detail', kwargs={'slug': self.slug})

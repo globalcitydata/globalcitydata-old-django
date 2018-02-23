@@ -39,7 +39,7 @@ def submitDatasetView(request):
     if request.method == 'POST':
         datasetSubmitForm = DatasetSubmitForm(request.POST)
         if datasetSubmitForm.is_valid():
-            datasetSubmitForm.a
+            datasetSubmitForm.save()
             return redirect('data:success')
     else:
         datasetSubmitForm = DatasetSubmitForm()
@@ -47,4 +47,4 @@ def submitDatasetView(request):
 
 
 def successView(request):
-    return render(request, 'sendemail/success.html')
+    return render(request, 'data/dataset/success.html')

@@ -63,21 +63,22 @@ class DatasetSubmitForm(forms.ModelForm):
     scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False,
+        required=True,
     )
     parameters = forms.ModelMultipleChoiceField(
         queryset=Parameter.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False,
+        required=True,
     )
     outcomes = forms.ModelMultipleChoiceField(
         queryset=Outcome.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False,
+        required=True,
     )
     type = forms.ModelChoiceField(
         queryset=Type.objects.all(),
         widget=forms.RadioSelect,
+        required=True
     )
 
     class Meta:
