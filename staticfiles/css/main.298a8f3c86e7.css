@@ -1,0 +1,102 @@
+/* Main Content */
+#content {
+  min-height: 65vh;
+}
+
+/* Showcase Styles */
+#showcase {
+  min-height: 450px;
+}
+
+#showcase #bg-image {
+  position: absolute;
+  background: #333 url("../img/city.015b7deaaa7a.jpeg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 450px;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
+#showcase h1 {
+  padding-top: 140px;
+  padding-bottom: 50px;
+}
+
+#showcase .btn {
+  font-size: 1.1rem;
+}
+
+/* SearchForm */
+#searchForm .input-group {
+  height: 3.5rem !important;
+}
+
+#searchForm button {
+  height: 3.5rem !important;
+  width: 3rem !important;
+}
+
+/* QueryForm */
+#queryDropdowns .dropdown-menu ul {
+  list-style: none;
+  padding-left: 5% !important;
+}
+
+#queryDropdowns a {
+  height: 3.5rem !important;
+  line-height: 2.25rem !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+}
+
+#queryForm .col-md, .col-md-5 {
+  padding: 0;
+!important;
+  margin: 0;
+!important;
+}
+
+#queryForm .row {
+  border-radius: 3rem;
+}
+
+/* Submit Form */
+#submitForm {
+  max-width: 600px;
+}
+
+/* Contact Form */
+#contactForm {
+  max-width: 500px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* Section Padding */
+#about .container, #data .container, #footer, #detail {
+  padding-top: 75px;
+  padding-bottom: 75px;
+}
+
+/* Datasets */
+#data {
+  background: linear-gradient(to bottom right, white, black);
+}
+#data #emptyDatasets {
+  font-size: 1.3rem;
+}
+
+/* Dataset Detail */
+#detail .btn {
+  font-size: 1.3rem;
+}
+
+/* Footer Styles */
+
+#footer p {
+  font-size: 1.2rem;
+}
