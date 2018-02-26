@@ -27,7 +27,6 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-# ALLOWED_HOSTS = .localhost, .herokuapp.com, 127.0.0.1, 0.0.0.0
 
 # Application definition
 
@@ -83,14 +82,6 @@ DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'globalcitydata',
-    #     'USER': 'rafibarash',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
 }
 
 # Password validation

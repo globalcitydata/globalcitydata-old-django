@@ -85,4 +85,4 @@ class DatasetSubmitForm(forms.ModelForm):
         model = DataSet
         fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
-                  'scales', 'parameters', 'outcomes', 'type']
+                  'contact_details', 'scales', 'parameters', 'outcomes', 'type']
