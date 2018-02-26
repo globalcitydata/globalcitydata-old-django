@@ -136,6 +136,11 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 # Deployment
 # SECURE_HSTS_SECONDS = 0
 # CSRF_COOKIE_SECURE = True
