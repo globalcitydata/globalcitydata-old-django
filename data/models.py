@@ -95,7 +95,7 @@ class FuturesModeling(models.Model):
         ('Base Year Data', 'Base Year Data'),
         ('Futures Modeling Data', 'Futures Modeling Data')
     )
-    title = models.CharField(max_length=20, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
+    title = models.CharField(max_length=25, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
@@ -121,6 +121,7 @@ class DatasetModelsManager(models.Manager):
 
 
 class DataSet(models.Model):
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published')
     title = models.CharField(max_length=50, default='', unique=True)
     slug = models.SlugField(max_length=50, default='', unique=True)
@@ -141,7 +142,6 @@ class DataSet(models.Model):
     datasetModels = DatasetModelsManager()
 
     # Filters
-    type = models.ForeignKey(Type, on_delete=models.CASCADE)
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
@@ -168,5 +168,10 @@ class DataSet(models.Model):
     def get_outcomes(self):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
 
+    def get_time(self):
+        return ", ".join([time.title for time in self.time.all()])
+
+    def get_futures_modeling(self):
+        return ", ".join([future.title for future in self.futures_modeling.all()])
     class Meta:
         ordering = ('title',)

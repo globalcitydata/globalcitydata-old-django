@@ -4,26 +4,29 @@ from .models import DataSet, Type, Scale, Parameter, Outcome, Time, FuturesModel
 from django.forms import CheckboxSelectMultiple
 
 
-
 class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # built in feature
-    list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status', 'type')  # built in feature
-    list_filter = ('scales', 'parameters', 'outcomes', 'status', 'type')  # built in feature
-    search_fields = ('title', 'slug', 'scales__title', 'parameters__title', 'outcomes__title', 'type')  # built in feature
+    list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status', 'type', 'get_time',
+                    'get_futures_modeling')  # built in feature
+    list_filter = ('scales', 'parameters', 'outcomes', 'status', 'type', 'time', 'futures_modeling')  # built in feature
+    search_fields = ('title', 'slug', 'scales__title', 'parameters__title', 'outcomes__title', 'type', 'time__title',
+                     'futures_modeling__title')  # built in feature
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 admin.site.register(DataSet, DataSetAdmin)
 
 
-class TimeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_data')
-admin.site.register(Time, TimeAdmin)
-
-class FuturesModelingAdmin(admin.ModelAdmin):
-    list_display = ('title', 'get_data')
-admin.site.register(FuturesModeling, FuturesModelingAdmin)
-
+# class TimeAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_data')
+# admin.site.register(Time, TimeAdmin)
+#
+#
+# class FuturesModelingAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'get_data')
+# admin.site.register(FuturesModeling, FuturesModelingAdmin)
+#
+#
 # class ScaleAdmin(admin.ModelAdmin):
 #     list_display = ('title', 'get_data')
 # admin.site.register(Scale, ScaleAdmin)
