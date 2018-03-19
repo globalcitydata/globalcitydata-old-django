@@ -16,10 +16,12 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
 
 app_name = 'sendemail'
 
 urlpatterns = [
-    path('success/', views.successView, name='success'),
-    path('', views.contactView, name='contact'),
+    path('', TemplateView.as_view(template_name='data/staticpage/contact.html'), name='collaborators'),
+    # path('success/', views.successView, name='success'),
+    # path('', views.contactView, name='contact'),
 ]

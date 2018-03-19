@@ -24,8 +24,6 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Email
-    path('contact/', include('sendemail.urls')),
     # Sitemap
     path('sitemap\.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # Must be last

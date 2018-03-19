@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     # My Apps
     'data',
-    'sendemail',
 ]
 
 MIDDLEWARE = [

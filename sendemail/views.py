@@ -18,7 +18,7 @@ def contactView(request):
             return redirect('sendemail:success')
     else:
         contactForm = ContactForm()
-    return render(request, 'sendemail/email.html', {'contactForm': contactForm})
+    return render(request, 'sendemail/../data/templates/data/staticpage/contact.html', {'contactForm': contactForm})
 
 
 def successView(request):

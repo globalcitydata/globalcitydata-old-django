@@ -22,6 +22,7 @@ app_name = 'data'
 urlpatterns = [
     path('collaborators/', TemplateView.as_view(template_name='data/staticpage/collaborators.html'), name='collaborators'),
     path('publications/', TemplateView.as_view(template_name='data/staticpage/publications.html'), name='publications'),
+    path('contact/', TemplateView.as_view(template_name='data/staticpage/contact.html'), name='contact'),
     path('submit-data/', views.submitDatasetView, name='submitDataset'),
     path('success/', views.successView, name='success'),
     path('<str:slug>/', views.detailView, name='detail'),  # Dataset Detail view
