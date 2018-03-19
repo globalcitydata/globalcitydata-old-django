@@ -1,4 +1,4 @@
-from .models import DataSet, Type, Scale, Parameter, Outcome
+from .models import DataSet, Scale, Parameter, Outcome, Time, FuturesModeling
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
@@ -23,27 +23,38 @@ class DataFilter():
         #                         )).filter(search=query))
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
-        scales = self.filterScales(scales_q)
+        scales = self.filter('scales', scales_q)
         params_q = Parameter.objects.all().filter(title__icontains=query)
-        params = self.filterParams(params_q)
+        params = self.filter('params', params_q)
         outcomes_q = Outcome.objects.all().filter(title__icontains=query)
-        outcomes = self.filterOutcomes(outcomes_q)
+        outcomes = self.filter('outcomes', outcomes_q)
+        time_q = Time.objects.all().filter(title__icontains=query)
+        time = self.filter('time', time_q)
+        futures_modeling_q = FuturesModeling.objects.all().filter(title__icontains=query)
+        futures_modeling = self.filter('futures', futures_modeling_q)
+
         # return union of all datasets and models
-        return set.union(data_search, scales, params, outcomes)
+        return set.union(data_search, scales, params, outcomes, time, futures_modeling)
 
     def getData(self):
         # Get scales
         self.type = self.cd['type']
         scales_q = self.cd['scales']
-        scales = self.filterScales(scales_q)
+        scales = self.filter('scales', scales_q)
         # Get parameters
         params_q = self.cd['parameters']
-        params = self.filterParams(params_q)
+        params = self.filter('params', params_q)
         # Get outcomes
         outcomes_q = self.cd['outcomes']
-        outcomes = self.filterOutcomes(outcomes_q)
+        outcomes = self.filter('outcomes', outcomes_q)
+        # Get time
+        time_q = self.cd['time']
+        time = self.filter('time', time_q)
+        # Get futures modeling
+        futures_modeling_q = self.cd['futures_modeling']
+        futures_modeling = self.filter('futures', futures_modeling_q)
         # Intersect datasets
-        data = set.union(scales, params, outcomes)
+        data = set.union(scales, params, outcomes, time, futures_modeling)
         if not data:
             if self.type:
                 data = DataSet.published.filter(type__title=self.type)
@@ -51,63 +62,32 @@ class DataFilter():
                 data = DataSet.published.all()
         return data
 
-    def filterScales(self, scales_q):
-        scales = set()
-        if scales_q:
-            if self.type:
-                scales = set(DataSet.published.filter(type__title=self.type).filter(scales__in=scales_q))
-            else:
-                scales = set(DataSet.published.filter(scales__in=scales_q))
-        return scales
-
-    def filterParams(self, params_q):
-        params = set()
-        if params_q:
-            if self.type:
-                params = set(DataSet.published.filter(type__title=self.type).filter(parameters__in=params_q))
-            else:
-                params = set(DataSet.published.filter(parameters__in=params_q))
-        return params
-
-    def filterOutcomes(self, outcomes_q):
-        outcomes = set()
-        if outcomes_q:
-            if self.type:
-                outcomes = set(DataSet.published.filter(type__title=self.type).filter(outcomes__in=outcomes_q))
-            else:
-                outcomes = set(DataSet.published.filter(outcomes__in=outcomes_q))
-        return outcomes
-
-    # def getModels(self):
-    #     # Get scales
-    #     scales_q = self.cd['scales']
-    #     scales = self.filterScales(scales_q)
-    #     # Get parameters
-    #     params_q = self.cd['parameters']
-    #     params = self.filterParams(params_q)
-    #     # Get outcomes
-    #     outcomes_q = self.cd['outcomes']
-    #     outcomes = self.filterOutcomes(outcomes_q)
-    #
-    #     # Intersect datasets
-    #     models = set.union(scales, params, outcomes)
-    #     if not models:
-    #         models = DataSet.datasetModels.all()
-    #     return models
-    #
-    # def getDatasets(self):
-    #     # Get scales
-    #     scales_q = self.cd['scales']
-    #     scales = self.filterScales(scales_q)
-    #     # Get parameters
-    #     params_q = self.cd['parameters']
-    #     params = self.filterParams(params_q)
-    #     # Get outcomes
-    #     outcomes_q = self.cd['outcomes']
-    #     outcomes = self.filterOutcomes(outcomes_q)
-    #
-    #     # Intersect datasets
-    #     datasets = set.union(scales, params, outcomes)
-    #     if not datasets:
-    #         datasets = set(DataSet.datasets.all())
-    #     return datasets
+    def filter(self, type, type_q):
+        data = set()
+        if type_q:
+            if type == 'scales':
+                if self.type:
+                    data = set(DataSet.published.filter(type__title=self.type).filter(scales__in=type_q))
+                else:
+                    data = set(DataSet.published.filter(scales__in=type_q))
+            elif type == 'params':
+                if self.type:
+                    data = set(DataSet.published.filter(type__title=self.type).filter(parameters__in=type_q))
+                else:
+                    data = set(DataSet.published.filter(parameters__in=type_q))
+            elif type == 'outcomes':
+                if self.type:
+                    data = set(DataSet.published.filter(type__title=self.type).filter(outcomes__in=type_q))
+                else:
+                    data = set(DataSet.published.filter(outcomes__in=type_q))
+            elif type == 'time':
+                if self.type:
+                    data = set(DataSet.published.filter(type__title=self.type).filter(time__in=type_q))
+                else:
+                    data = set(DataSet.published.filter(time__in=type_q))
+            elif type == 'futures':
+                if self.type:
+                    data = set(DataSet.published.filter(type__title=self.type).filter(futures_modeling__in=type_q))
+                else:
+                    data = set(DataSet.published.filter(futures_modeling__in=type_q))
+        return data

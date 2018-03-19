@@ -10,7 +10,8 @@
     <div class="container">
       <h1 class="text-white">Global City Data</h1>
       <div class="row" id="forms">
-        <div class="col-md-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
           {# Search Form #}
           <form method="post" id="searchForm">
             {% csrf_token %}
@@ -23,7 +24,9 @@
             </div>
           </form>
         </div>
-        <div class="col-md">
+        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <form method="post" id="queryForm">
             <div class="row bg-primary">
               {% csrf_token %}
@@ -40,14 +43,16 @@
                   </div>
                 </div>
               {% endfor %}
-              <input class="btn btn-success col-md-2" type="submit" value="Search" name="query">
+              <input class="btn btn-success col-md" type="submit" value="Search" name="query">
             </div>
           </form>
         </div>
+        <div class="col-md-1"></div>
       </div>
     </div>
   </div>
 
+  {% if not submitted %}
   <section id="about">
     <div class="container text-center">
       <h2 class="mb-4">Our Purpose</h2>
@@ -55,10 +60,12 @@
         of international researchers. If you are interested in working with any of the data sets and models featured on
         this site, please use the contact link at the bottom of each detail page to be put you in contact with the
         owners of individual data sets and models.</p>
-      <p>Interested in contributing to Global City Data? Learn more <a href="{% url 'data:collaborators' %}">here.</a></p>
+      <p>Interested in contributing to Global City Data? Learn more <a href="{% url 'data:collaborators' %}">here.</a>
+      </p>
       <a class="mt-4 btn btn-dark btn-lg js-scroll-trigger" href="#data">Datasets and Models</a>
     </div>
   </section>
+  {% endif %}
 
   <section id="data">
     <div class="container">
@@ -76,7 +83,7 @@
             </div>
           </section>
         {% empty %}
-          <p id="emptyDatasets" class="m-4 text-white ">There are no datasets or models that match your query.</p>
+          <p id="emptyDatasets" class="m-4 text-white">There are no datasets or models that match your query.</p>
         {% endfor %}
       </div>
     </div>

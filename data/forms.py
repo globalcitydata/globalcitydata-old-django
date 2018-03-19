@@ -1,5 +1,5 @@
 from django import forms
-from .models import DataSet, Type, Scale, Parameter, Outcome
+from .models import DataSet, Type, Scale, Parameter, Outcome, Time, FuturesModeling
 
 
 class SearchForm(forms.Form):
@@ -29,6 +29,16 @@ class QueryForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
+    time = forms.ModelMultipleChoiceField(
+        queryset=Time.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    futures_modeling = forms.ModelMultipleChoiceField(
+        queryset=FuturesModeling.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
 
     class Meta:
         model = DataSet
@@ -36,6 +46,11 @@ class QueryForm(forms.ModelForm):
 
 
 class DatasetSubmitForm(forms.ModelForm):
+    type = forms.ModelChoiceField(
+        queryset=Type.objects.all(),
+        widget=forms.RadioSelect,
+        required=True
+    )
     title = forms.CharField(required=True, max_length=50, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                                         'placeholder': 'Dataset Title'}))
     description = forms.CharField(required=True, max_length=200, widget=forms.Textarea(attrs={'class': 'form-control',
@@ -75,10 +90,15 @@ class DatasetSubmitForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
-    type = forms.ModelChoiceField(
-        queryset=Type.objects.all(),
-        widget=forms.RadioSelect,
-        required=True
+    time = forms.ModelMultipleChoiceField(
+        queryset=Time.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+    )
+    futures_modeling = forms.ModelMultipleChoiceField(
+        queryset=FuturesModeling.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
     )
 
     class Meta:

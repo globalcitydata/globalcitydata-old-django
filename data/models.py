@@ -173,5 +173,6 @@ class DataSet(models.Model):
 
     def get_futures_modeling(self):
         return ", ".join([future.title for future in self.futures_modeling.all()])
+
     class Meta:
         ordering = ('title',)
