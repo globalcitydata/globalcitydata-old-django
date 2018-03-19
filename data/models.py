@@ -21,7 +21,7 @@ class Scale(models.Model):
     def __str__(self):
         return self.title
 
-    def get_datasets(self):
+    def get_data(self):
         return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
@@ -37,7 +37,7 @@ class Parameter(models.Model):
     def __str__(self):
         return self.title
 
-    def get_datasets(self):
+    def get_data(self):
         return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
@@ -54,7 +54,7 @@ class Outcome(models.Model):
     def __str__(self):
         return self.title
 
-    def get_datasets(self):
+    def get_data(self):
         return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
@@ -68,10 +68,10 @@ class Type(models.Model):
     def __str__(self):
         return self.title
 
-    def get_model(self):
+    def get_models(self):
         return self.objects.all().filter(title='Model')
 
-    def get_dataset(self):
+    def get_datasets(self):
         return self.objects.all().filter(title='Dataset')
 
 
@@ -80,10 +80,13 @@ class Time(models.Model):
         ('One Time Assessment', 'One Time Assessment'),
         ('Time Series', 'Time Series')
     )
-    title = models.CharField(max_length=10, choices=TIME_CHOICES, blank=True, default='', unique=True)
+    title = models.CharField(max_length=20, choices=TIME_CHOICES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
+
+    def get_data(self):
+        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
 class FuturesModeling(models.Model):
@@ -92,10 +95,13 @@ class FuturesModeling(models.Model):
         ('Base Year Data', 'Base Year Data'),
         ('Futures Modeling Data', 'Futures Modeling Data')
     )
-    title = models.CharField(max_length=10, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
+    title = models.CharField(max_length=20, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
+
+    def get_data(self):
+        return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
 # DataSets
