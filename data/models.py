@@ -8,11 +8,6 @@ STATUS_CHOICES = (
     ('published', 'Published'),
 )
 
-DATA_TYPES = (
-    ('Dataset', 'Dataset'),
-    ('Model', 'Model'),
-)
-
 
 # Filters
 class Scale(models.Model):
@@ -64,19 +59,43 @@ class Outcome(models.Model):
 
 
 class Type(models.Model):
+    DATA_TYPES = (
+        ('Dataset', 'Dataset'),
+        ('Model', 'Model'),
+    )
     title = models.CharField(max_length=10, choices=DATA_TYPES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
-
-        # def get_datasets(self):
-        #     return ", ".join([dataset.title for dataset in self.objects.all()])
 
     def get_model(self):
         return self.objects.all().filter(title='Model')
 
     def get_dataset(self):
         return self.objects.all().filter(title='Dataset')
+
+
+class Time(models.Model):
+    TIME_CHOICES = (
+        ('One Time Assessment', 'One Time Assessment'),
+        ('Time Series', 'Time Series')
+    )
+    title = models.CharField(max_length=10, choices=TIME_CHOICES, blank=True, default='', unique=True)
+
+    def __str__(self):
+        return self.title
+
+
+class FuturesModeling(models.Model):
+    FUTURES_CHOICES = (
+        ('Historical Data', 'Historical Data'),
+        ('Base Year Data', 'Base Year Data'),
+        ('Futures Modeling Data', 'Futures Modeling Data')
+    )
+    title = models.CharField(max_length=10, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
+
+    def __str__(self):
+        return self.title
 
 
 # DataSets
@@ -120,6 +139,8 @@ class DataSet(models.Model):
     scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
+    time = models.ManyToManyField(Time)
+    futures_modeling = models.ManyToManyField(FuturesModeling)
 
     def __str__(self):
         return self.title
