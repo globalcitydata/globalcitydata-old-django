@@ -17,31 +17,31 @@ class DataSetAdmin(admin.ModelAdmin):
 admin.site.register(DataSet, DataSetAdmin)
 
 
-# class TimeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_data')
-# admin.site.register(Time, TimeAdmin)
-#
-#
-# class FuturesModelingAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_data')
-# admin.site.register(FuturesModeling, FuturesModelingAdmin)
-#
-#
-# class ScaleAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_data')
-# admin.site.register(Scale, ScaleAdmin)
-#
-#
-# class ParameterAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_data')
-# admin.site.register(Parameter, ParameterAdmin)
-#
-#
-# class OutcomeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_data')
-# admin.site.register(Outcome, OutcomeAdmin)
-#
-#
-# class TypeAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'get_models', 'get_datasets')
-# admin.site.register(Type, TypeAdmin)
+class TimeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_data')
+admin.site.register(Time, TimeAdmin)
+
+
+class WorldRegionsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_data')
+admin.site.register(WorldRegions, WorldRegionsAdmin)
+
+
+class ScaleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_data')
+admin.site.register(Scale, ScaleAdmin)
+
+
+class ParameterAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_data')
+admin.site.register(Parameter, ParameterAdmin)
+
+
+class OutcomeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_data')
+admin.site.register(Outcome, OutcomeAdmin)
+
+
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'get_models', 'get_datasets')
+admin.site.register(Type, TypeAdmin)
