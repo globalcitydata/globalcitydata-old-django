@@ -5,10 +5,10 @@
 $(".hiddenbtn").click(function() {
   var lable = $(".hiddenbtn").text().trim();
   var hidden = $(".hiddenText").text().trim();
-  if (lable == "Request dataset access") {
+  if (lable == "Request access") {
     $(".hiddenbtn").text(hidden)
   } else {
-    $(".hiddenbtn").text("Request dataset access")
+    $(".hiddenbtn").text("Request access")
   }
 });
 
