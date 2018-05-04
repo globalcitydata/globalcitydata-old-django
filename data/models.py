@@ -12,9 +12,9 @@ STATUS_CHOICES = (
 # Filters
 class Scale(models.Model):
     SCALE_CHOICES = (
-        ('Intra City Data', 'Intra City Data'),
-        ('Whole City Data', 'Whole City Data'),
-        ('All City Data', 'All City Data'),
+        ('Intra Urban', 'Intra Urban'),
+        ('Whole City', 'Whole City'),
+        ('National Urban', 'National Urban'),
     )
     title = models.CharField(max_length=20, choices=SCALE_CHOICES, blank=True, default='', unique=True)
 

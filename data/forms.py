@@ -14,7 +14,7 @@ class QueryForm(forms.ModelForm):
         widget=forms.RadioSelect,
         required=False,
     )
-    scales = forms.ModelMultipleChoiceField(
+    spatial_scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False,
