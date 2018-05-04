@@ -49,22 +49,37 @@
         </div>
         <div class="col-md-1"></div>
       </div>
+      <div class="row pt-4 d-block mx-auto" id="legend">
+        <p>
+          <button class="mt-4 btn btn-secondary btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample"
+                  aria-expanded="false" aria-controls="collapseExample">
+            Search Legend
+          </button>
+        </p>
+        <div class="collapse mx-auto" id="collapseExample">
+          <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   {% if not submitted %}
-  <section id="about">
-    <div class="container text-center">
-      <h2 class="mb-4">Our Purpose</h2>
-      <p>Global City Data hosts descriptions of open access urban systems data sets and models collected and vetted by a network
-        of international researchers. To learn more about the data sets and models featured on
-        this site, please use the contact link at the bottom of each detail page to be put in contact with the
-        owners of individual data sets and models.</p>
-      <p>Interested in contributing to Global City Data? Learn more <a href="{% url 'data:collaborators' %}">here.</a>
-      </p>
-      <a class="mt-4 btn btn-dark btn-lg js-scroll-trigger" href="#data">Datasets and Models</a>
-    </div>
-  </section>
+    <section id="about">
+      <div class="container text-center">
+        <h2 class="mb-4">Our Purpose</h2>
+        <p>Global City Data hosts descriptions of open access urban systems data sets and models collected and vetted by
+          a network
+          of international researchers. To learn more about the data sets and models featured on
+          this site, please use the contact link at the bottom of each detail page to be put in contact with the
+          owners of individual data sets and models.</p>
+        <p>Interested in contributing to Global City Data? Learn more <a href="{% url 'data:collaborators' %}">here.</a>
+        </p>
+        <a class="mt-4 btn btn-dark btn-lg js-scroll-trigger" href="#data">Datasets and Models</a>
+      </div>
+    </section>
   {% endif %}
 
   <section id="data">
