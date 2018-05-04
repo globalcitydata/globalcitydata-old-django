@@ -23,7 +23,7 @@ class DataFilter():
         #                         )).filter(search=query))
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
-        scales = self.filter('scales', scales_q)
+        scales = self.filter('spatial_scales', scales_q)
         params_q = Parameter.objects.all().filter(title__icontains=query)
         params = self.filter('params', params_q)
         outcomes_q = Outcome.objects.all().filter(title__icontains=query)
@@ -39,7 +39,7 @@ class DataFilter():
     def getData(self):
         # Get scales
         self.type = self.cd['type']
-        scales_q = self.cd['scales']
+        scales_q = self.cd['spatial_scales']
         scales = self.filter('scales', scales_q)
         # Get parameters
         params_q = self.cd['parameters']

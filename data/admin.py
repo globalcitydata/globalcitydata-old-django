@@ -8,7 +8,7 @@ class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # built in feature
     list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status', 'type', 'get_time',
                     'get_futures_modeling')  # built in feature
-    list_filter = ('scales', 'parameters', 'outcomes', 'status', 'type', 'time', 'futures_modeling')  # built in feature
+    list_filter = ('spatial_scales', 'parameters', 'outcomes', 'status', 'type', 'time', 'futures_modeling')  # built in feature
     search_fields = ('title', 'slug', 'scales__title', 'parameters__title', 'outcomes__title', 'type', 'time__title',
                      'futures_modeling__title')  # built in feature
     formfield_overrides = {

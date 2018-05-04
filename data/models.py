@@ -142,7 +142,7 @@ class DataSet(models.Model):
     datasetModels = DatasetModelsManager()
 
     # Filters
-    scales = models.ManyToManyField(Scale)
+    spatial_scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
     time = models.ManyToManyField(Time)
@@ -160,7 +160,7 @@ class DataSet(models.Model):
         return reverse(viewname='data:detail', kwargs={'slug': self.slug})
 
     def get_scales(self):
-        return ", ".join([scale.title for scale in self.scales.all()])
+        return ", ".join([scale.title for scale in self.spatial_scales.all()])
 
     def get_parameters(self):
         return ", ".join([param.title for param in self.parameters.all()])

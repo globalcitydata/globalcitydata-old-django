@@ -42,7 +42,7 @@ class QueryForm(forms.ModelForm):
 
     class Meta:
         model = DataSet
-        fields = ['type', 'scales', 'parameters', 'outcomes']
+        fields = ['type', "spatial_scales", 'parameters', 'outcomes']
 
 
 class DatasetSubmitForm(forms.ModelForm):
@@ -75,7 +75,7 @@ class DatasetSubmitForm(forms.ModelForm):
                                                                                         'placeholder': 'Your Name'}))
     contact_details = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                                     'placeholder': 'your@email.com'}))
-    scales = forms.ModelMultipleChoiceField(
+    spatial_scales = forms.ModelMultipleChoiceField(
         queryset=Scale.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=True,
@@ -105,4 +105,4 @@ class DatasetSubmitForm(forms.ModelForm):
         model = DataSet
         fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
-                  'contact_details', 'scales', 'parameters', 'outcomes', 'type']
+                  'contact_details', "spatial_scales", 'parameters', 'outcomes', 'type']
