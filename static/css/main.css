@@ -99,6 +99,10 @@
 #detail .btn {
   font-size: 1.3rem;
 }
+#detail p {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
 
 /* Footer Styles */
 

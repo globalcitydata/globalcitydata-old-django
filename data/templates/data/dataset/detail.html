@@ -9,13 +9,11 @@
       <p class="lead">{{ dataset.description }}</p>
       <hr>
       <h4 class="mb-3">Dataset Tags</h4>
-      <div class="container">
-        <p><span class="font-weight-bold">Parameters: </span>{{ dataset.get_parameters }}</p>
-        <p><span class="font-weight-bold">Outcomes: </span>{{ dataset.get_outcomes }}</p>
-        <p><span class="font-weight-bold">Spatial Scales: </span>{{ dataset.get_scales }}</p>
-        <p><span class="font-weight-bold">Temporal Scales: </span>{{ dataset.get_time }}</p>
-        <p><span class="font-weight-bold">World Regions: </span>{{ dataset.get_world_regions }}</p>
-      </div>
+      <p><span class="font-weight-bold">Parameters: </span>{{ dataset.get_parameters }}</p>
+      <p><span class="font-weight-bold">Outcomes: </span>{{ dataset.get_outcomes }}</p>
+      <p><span class="font-weight-bold">Spatial Scales: </span>{{ dataset.get_scales }}</p>
+      <p><span class="font-weight-bold">Temporal Scales: </span>{{ dataset.get_time }}</p>
+      <p><span class="font-weight-bold">World Regions: </span>{{ dataset.get_world_regions }}</p>
       <h4>Context</h4>
       <p>{{ dataset.context }}</p>
       <h4>Key Takeaways</h4>
