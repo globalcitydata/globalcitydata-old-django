@@ -77,7 +77,7 @@ class Type(models.Model):
 
 class Time(models.Model):
     TIME_CHOICES = (
-        ('One Time Assessment', 'One Time Assessment'),
+        ('Snapshot', 'Snapshot'),
         ('Time Series', 'Time Series')
     )
     title = models.CharField(max_length=20, choices=TIME_CHOICES, blank=True, default='', unique=True)
@@ -145,7 +145,7 @@ class DataSet(models.Model):
     spatial_scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
-    time = models.ManyToManyField(Time)
+    temporal_scales = models.ManyToManyField(Time)
     futures_modeling = models.ManyToManyField(FuturesModeling)
 
     def __str__(self):
@@ -169,7 +169,7 @@ class DataSet(models.Model):
         return ", ".join([outcome.title for outcome in self.outcomes.all()])
 
     def get_time(self):
-        return ", ".join([time.title for time in self.time.all()])
+        return ", ".join([time.title for time in self.temporal_scales.all()])
 
     def get_futures_modeling(self):
         return ", ".join([future.title for future in self.futures_modeling.all()])

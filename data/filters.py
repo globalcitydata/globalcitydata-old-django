@@ -23,7 +23,7 @@ class DataFilter():
         #                         )).filter(search=query))
         # Search dataset tags
         scales_q = Scale.objects.all().filter(title__icontains=query)
-        scales = self.filter('spatial_scales', scales_q)
+        scales = self.filter('scales', scales_q)
         params_q = Parameter.objects.all().filter(title__icontains=query)
         params = self.filter('params', params_q)
         outcomes_q = Outcome.objects.all().filter(title__icontains=query)
@@ -48,7 +48,7 @@ class DataFilter():
         outcomes_q = self.cd['outcomes']
         outcomes = self.filter('outcomes', outcomes_q)
         # Get time
-        time_q = self.cd['time']
+        time_q = self.cd['temporal_scales']
         time = self.filter('time', time_q)
         # Get futures modeling
         futures_modeling_q = self.cd['futures_modeling']

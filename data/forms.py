@@ -14,11 +14,6 @@ class QueryForm(forms.ModelForm):
         widget=forms.RadioSelect,
         required=False,
     )
-    spatial_scales = forms.ModelMultipleChoiceField(
-        queryset=Scale.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
     parameters = forms.ModelMultipleChoiceField(
         queryset=Parameter.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -29,7 +24,12 @@ class QueryForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    time = forms.ModelMultipleChoiceField(
+    spatial_scales = forms.ModelMultipleChoiceField(
+        queryset=Scale.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+    temporal_scales = forms.ModelMultipleChoiceField(
         queryset=Time.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False,
@@ -75,11 +75,6 @@ class DatasetSubmitForm(forms.ModelForm):
                                                                                         'placeholder': 'Your Name'}))
     contact_details = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                                     'placeholder': 'your@email.com'}))
-    spatial_scales = forms.ModelMultipleChoiceField(
-        queryset=Scale.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True,
-    )
     parameters = forms.ModelMultipleChoiceField(
         queryset=Parameter.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -90,7 +85,12 @@ class DatasetSubmitForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
-    time = forms.ModelMultipleChoiceField(
+    spatial_scales = forms.ModelMultipleChoiceField(
+        queryset=Scale.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True,
+    )
+    temporal_scales = forms.ModelMultipleChoiceField(
         queryset=Time.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=True,
