@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dataset',
             name='futures_modeling',
-            field=models.ManyToManyField(to='data.FuturesModeling'),
+            field=models.ManyToManyField(to='data.models.WorldRegions'),
         ),
         migrations.AddField(
             model_name='dataset',

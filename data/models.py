@@ -78,7 +78,8 @@ class Type(models.Model):
 class Time(models.Model):
     TIME_CHOICES = (
         ('Snapshot', 'Snapshot'),
-        ('Time Series', 'Time Series')
+        ('Time Series', 'Time Series'),
+        ('Futures Modeling', 'Futures Modeling')
     )
     title = models.CharField(max_length=20, choices=TIME_CHOICES, blank=True, default='', unique=True)
 
@@ -89,13 +90,13 @@ class Time(models.Model):
         return ", ".join([dataset.title for dataset in self.dataset_set.all()])
 
 
-class FuturesModeling(models.Model):
-    FUTURES_CHOICES = (
-        ('Historical Data', 'Historical Data'),
-        ('Base Year Data', 'Base Year Data'),
-        ('Futures Modeling Data', 'Futures Modeling Data')
+class WorldRegions(models.Model):
+    REGIONS_CHOICES = (
+        ('US', 'US'),
+        ('China', 'China'),
+        ('India', 'India')
     )
-    title = models.CharField(max_length=25, choices=FUTURES_CHOICES, blank=True, default='', unique=True)
+    title = models.CharField(max_length=25, choices=REGIONS_CHOICES, blank=True, default='', unique=True)
 
     def __str__(self):
         return self.title
@@ -142,11 +143,11 @@ class DataSet(models.Model):
     datasetModels = DatasetModelsManager()
 
     # Filters
-    spatial_scales = models.ManyToManyField(Scale)
     parameters = models.ManyToManyField(Parameter)
     outcomes = models.ManyToManyField(Outcome)
+    spatial_scales = models.ManyToManyField(Scale)
     temporal_scales = models.ManyToManyField(Time)
-    futures_modeling = models.ManyToManyField(FuturesModeling)
+    world_regions = models.ManyToManyField(WorldRegions)
 
     def __str__(self):
         return self.title
@@ -171,8 +172,8 @@ class DataSet(models.Model):
     def get_time(self):
         return ", ".join([time.title for time in self.temporal_scales.all()])
 
-    def get_futures_modeling(self):
-        return ", ".join([future.title for future in self.futures_modeling.all()])
+    def get_world_regions(self):
+        return ", ".join([region.title for region in self.world_regions.all()])
 
     class Meta:
         ordering = ('title',)

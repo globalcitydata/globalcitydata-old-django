@@ -1,4 +1,4 @@
-from .models import DataSet, Scale, Parameter, Outcome, Time, FuturesModeling
+from .models import DataSet, Scale, Parameter, Outcome, Time, WorldRegions
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
@@ -30,11 +30,11 @@ class DataFilter():
         outcomes = self.filter('outcomes', outcomes_q)
         time_q = Time.objects.all().filter(title__icontains=query)
         time = self.filter('time', time_q)
-        futures_modeling_q = FuturesModeling.objects.all().filter(title__icontains=query)
-        futures_modeling = self.filter('futures', futures_modeling_q)
+        world_regions_q = WorldRegions.objects.all().filter(title__icontains=query)
+        world_regions = self.filter('regions', world_regions_q)
 
         # return union of all datasets and models
-        return set.union(data_search, scales, params, outcomes, time, futures_modeling)
+        return set.union(data_search, scales, params, outcomes, time, world_regions)
 
     def getData(self):
         # Get scales
@@ -50,11 +50,11 @@ class DataFilter():
         # Get time
         time_q = self.cd['temporal_scales']
         time = self.filter('time', time_q)
-        # Get futures modeling
-        futures_modeling_q = self.cd['futures_modeling']
-        futures_modeling = self.filter('futures', futures_modeling_q)
+        # Get world regions
+        world_regions_q = self.cd['world_regions']
+        world_regions = self.filter('regions', world_regions_q)
         # Intersect datasets
-        data = set.union(scales, params, outcomes, time, futures_modeling)
+        data = set.union(scales, params, outcomes, time, world_regions)
         if not data:
             if self.type:
                 data = DataSet.published.filter(type__title=self.type)
@@ -67,9 +67,9 @@ class DataFilter():
         if type_q:
             if type == 'scales':
                 if self.type:
-                    data = set(DataSet.published.filter(type__title=self.type).filter(scales__in=type_q))
+                    data = set(DataSet.published.filter(type__title=self.type).filter(spatial_scales__in=type_q))
                 else:
-                    data = set(DataSet.published.filter(scales__in=type_q))
+                    data = set(DataSet.published.filter(spatial_scales__in=type_q))
             elif type == 'params':
                 if self.type:
                     data = set(DataSet.published.filter(type__title=self.type).filter(parameters__in=type_q))
@@ -82,12 +82,12 @@ class DataFilter():
                     data = set(DataSet.published.filter(outcomes__in=type_q))
             elif type == 'time':
                 if self.type:
-                    data = set(DataSet.published.filter(type__title=self.type).filter(time__in=type_q))
+                    data = set(DataSet.published.filter(type__title=self.type).filter(temporal_scales__in=type_q))
                 else:
-                    data = set(DataSet.published.filter(time__in=type_q))
-            elif type == 'futures':
+                    data = set(DataSet.published.filter(temporal_scales__in=type_q))
+            elif type == 'regions':
                 if self.type:
-                    data = set(DataSet.published.filter(type__title=self.type).filter(futures_modeling__in=type_q))
+                    data = set(DataSet.published.filter(type__title=self.type).filter(world_regions__in=type_q))
                 else:
-                    data = set(DataSet.published.filter(futures_modeling__in=type_q))
+                    data = set(DataSet.published.filter(world_regions__in=type_q))
         return data

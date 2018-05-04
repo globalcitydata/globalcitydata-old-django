@@ -1,16 +1,16 @@
 from django.contrib import admin
 from django.db import models
-from .models import DataSet, Type, Scale, Parameter, Outcome, Time, FuturesModeling
+from .models import DataSet, Type, Scale, Parameter, Outcome, Time, WorldRegions
 from django.forms import CheckboxSelectMultiple
 
 
 class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}  # built in feature
-    list_display = ('title', 'slug', 'get_scales', 'get_parameters', 'get_outcomes', 'status', 'type', 'get_time',
-                    'get_futures_modeling')  # built in feature
-    list_filter = ('spatial_scales', 'parameters', 'outcomes', 'status', 'type', 'temporal_scales', 'futures_modeling')  # built in feature
+    list_display = ('title', 'slug', 'status', 'type', 'get_parameters', 'get_outcomes', 'get_scales', 'get_time',
+                    'get_world_regions')  # built in feature
+    list_filter = ('type', 'status', 'parameters', 'outcomes', 'spatial_scales', 'temporal_scales', 'world_regions')  # built in feature
     search_fields = ('title', 'slug', 'spatial_scales__title', 'parameters__title', 'outcomes__title', 'type', 'temporal_scales__title',
-                     'futures_modeling__title')  # built in feature
+                     'world_regions__title')  # built in feature
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }

@@ -1,5 +1,5 @@
 from django import forms
-from .models import DataSet, Type, Scale, Parameter, Outcome, Time, FuturesModeling
+from .models import DataSet, Type, Scale, Parameter, Outcome, Time, WorldRegions
 
 
 class SearchForm(forms.Form):
@@ -34,15 +34,15 @@ class QueryForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
-    futures_modeling = forms.ModelMultipleChoiceField(
-        queryset=FuturesModeling.objects.all(),
+    world_regions = forms.ModelMultipleChoiceField(
+        queryset=WorldRegions.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False,
     )
 
     class Meta:
         model = DataSet
-        fields = ['type', "spatial_scales", 'parameters', 'outcomes']
+        fields = ['type', 'parameters', 'outcomes', "spatial_scales", 'temporal_scales', 'world_regions']
 
 
 class DatasetSubmitForm(forms.ModelForm):
@@ -95,14 +95,14 @@ class DatasetSubmitForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
-    futures_modeling = forms.ModelMultipleChoiceField(
-        queryset=FuturesModeling.objects.all(),
+    world_regions = forms.ModelMultipleChoiceField(
+        queryset=WorldRegions.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
 
     class Meta:
         model = DataSet
-        fields = ['title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+        fields = ['type', 'title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
-                  'contact_details', "spatial_scales", 'parameters', 'outcomes', 'type']
+                  'contact_details', 'parameters', 'outcomes', "spatial_scales", 'temporal_scales', 'world_regions']
