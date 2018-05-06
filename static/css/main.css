@@ -65,8 +65,14 @@
 }
 
 /* Legend collapse */
+
 #collapseExample {
+  position: absolute;
   max-width: 600px;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  margin: 1.5rem auto 0;
 }
 
 /* Submit Form */
