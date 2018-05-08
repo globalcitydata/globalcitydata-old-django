@@ -9,7 +9,7 @@ class SearchForm(forms.Form):
 
 
 class QueryForm(forms.ModelForm):
-    type = forms.ModelChoiceField(
+    content_type = forms.ModelChoiceField(
         queryset=Type.objects.all(),
         widget=forms.RadioSelect,
         required=False,
@@ -42,11 +42,11 @@ class QueryForm(forms.ModelForm):
 
     class Meta:
         model = DataSet
-        fields = ['type', 'parameters', 'outcomes', "spatial_scales", 'temporal_scales', 'world_regions']
+        fields = ['content_type', 'parameters', 'outcomes', "spatial_scales", 'temporal_scales', 'world_regions']
 
 
 class DatasetSubmitForm(forms.ModelForm):
-    type = forms.ModelChoiceField(
+    content_type = forms.ModelChoiceField(
         queryset=Type.objects.all(),
         widget=forms.RadioSelect,
         required=True
@@ -103,6 +103,6 @@ class DatasetSubmitForm(forms.ModelForm):
 
     class Meta:
         model = DataSet
-        fields = ['type', 'title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
+        fields = ['content_type', 'title', 'description', 'context', 'key_takeaways', 'sample_uses_and_visualization',
                   'technical_details', 'applicable_models_or_datasets', 'relevant_publications', 'owner',
                   'contact_details', 'parameters', 'outcomes', "spatial_scales", 'temporal_scales', 'world_regions']

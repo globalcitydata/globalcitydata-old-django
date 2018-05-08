@@ -38,7 +38,7 @@ class DataFilter():
 
     def getData(self):
         # Get scales
-        self.type = self.cd['type']
+        self.type = self.cd['content_type']
         scales_q = self.cd['spatial_scales']
         scales = self.filter('scales', scales_q)
         # Get parameters
