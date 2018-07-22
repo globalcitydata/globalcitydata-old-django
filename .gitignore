@@ -1,4 +1,5 @@
-gcdvenv
+gcdvenv/
 *.pyc
 .env
-.idea
+.idea/
+staticfiles/
